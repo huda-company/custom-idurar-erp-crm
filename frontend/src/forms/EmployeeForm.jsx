@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Input, Button, Radio, Select, Switch } from 'antd';
-import { DatePicker, TimePicker, Calendar } from '@/components/CustomAntd';
+import { Form, Input, Select } from 'antd';
+import { DatePicker } from '@/components/CustomAntd';
 
 export default function EmployeeForm() {
   return (

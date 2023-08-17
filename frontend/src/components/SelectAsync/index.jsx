@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { request } from '@/request';
 import useFetch from '@/hooks/useFetch';
 import { Select } from 'antd';
@@ -21,6 +21,7 @@ export default function SelectAsync({
   useEffect(() => {
     isSuccess ? setOptions(result) : setOptions([]);
     setIsLoading(fetchIsLoading);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchIsLoading]);
 
   const labels = (optionField) => {
@@ -32,6 +33,7 @@ export default function SelectAsync({
       setCurrentValue(value[outputValue] || value); // set nested value or value
       onChange(value[outputValue] || value);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Divider } from 'antd';
 
-import { Button, PageHeader, Row, Statistic, Tag } from 'antd';
+import { Button, PageHeader, Tag } from 'antd';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { erp } from '@/redux/erp/actions';
@@ -39,6 +39,7 @@ export default function CreateItem({ config, CreateForm }) {
     let subTotal = 0;
 
     if (items) {
+      // eslint-disable-next-line array-callback-return
       items.map((item) => {
         if (item) {
           if (item.quantity && item.price) {
@@ -60,6 +61,7 @@ export default function CreateItem({ config, CreateForm }) {
       createPanel.close();
       dispatch(erp.list({ entity }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   const onSubmit = (fieldsValue) => {
@@ -80,6 +82,7 @@ export default function CreateItem({ config, CreateForm }) {
       // }
       if (fieldsValue.items) {
         let newList = [...fieldsValue.items];
+        // eslint-disable-next-line array-callback-return
         newList.map((item) => {
           item.total = item.quantity * item.price;
         });

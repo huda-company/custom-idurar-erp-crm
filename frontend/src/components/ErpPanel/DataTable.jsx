@@ -4,7 +4,7 @@ import { Button, PageHeader } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { erp } from '@/redux/erp/actions';
-import { settings } from '@/redux/settings/actions';
+
 import { selectListItems } from '@/redux/erp/selectors';
 import { useErpContext } from '@/context/erp';
 import uniqueId from '@/utils/uinqueId';
@@ -49,6 +49,7 @@ export default function DataTable({ config, DataTableDropMenu }) {
   const handelDataTableLoad = useCallback((pagination) => {
     const options = { page: pagination.current || 1 };
     dispatch(erp.list({ entity, options }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const handelCurrency = () => {
@@ -57,6 +58,7 @@ export default function DataTable({ config, DataTableDropMenu }) {
   // };
   useEffect(() => {
     dispatch(erp.list({ entity }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

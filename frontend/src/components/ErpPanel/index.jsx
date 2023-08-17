@@ -7,7 +7,6 @@ import UpdateItem from './UpdateItem';
 import Delete from './DeleteItem';
 import ReadItem from './ReadItem';
 import Payment from './Payment';
-import Search from './SearchItem';
 
 import { useDispatch } from 'react-redux';
 import { erp } from '@/redux/erp/actions';
@@ -25,6 +24,7 @@ export default function ErpPanel({ config, CreateForm, UpdateForm, DataTableDrop
   const { update, read, create, recordPayment, dataTableList, deleteModal } = state;
   useLayoutEffect(() => {
     dispatch(erp.resetState());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

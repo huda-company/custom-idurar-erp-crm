@@ -44,6 +44,7 @@ export default function SidePanel({ config, topContent, bottomContent, fixHeader
     }
 
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPanelClose]);
 
   const collapsePanel = () => {

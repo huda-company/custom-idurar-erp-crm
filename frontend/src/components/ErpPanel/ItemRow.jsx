@@ -30,6 +30,7 @@ export default function ItemRow({
         setPrice(item.price);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current]);
 
   useEffect(() => {

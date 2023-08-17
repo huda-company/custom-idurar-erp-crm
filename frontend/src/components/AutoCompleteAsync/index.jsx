@@ -43,7 +43,7 @@ export default function AutoCompleteAsync({
   };
 
   useEffect(() => {
-    if (debouncedValue != '') {
+    if (debouncedValue !== '') {
       const options = {
         q: debouncedValue,
         fields: searchFields,
@@ -54,10 +54,11 @@ export default function AutoCompleteAsync({
     return () => {
       cancel();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue]);
 
   const onSearch = (searchText) => {
-    if (searchText && searchText != '') {
+    if (searchText && searchText !== '') {
       isSearching.current = true;
       setSearching(true);
       setOptions([]);
@@ -87,6 +88,7 @@ export default function AutoCompleteAsync({
       onChange(value[outputValue] || value);
       isUpdating.current = false;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   return (

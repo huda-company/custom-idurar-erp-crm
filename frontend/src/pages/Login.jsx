@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Form, Input, Button, Space, Layout, Row, Col, Divider } from 'antd';
+import { Form, Button, Space, Layout, Col, Divider } from 'antd';
 import { Typography } from 'antd';
 
 import { login } from '@/redux/auth/actions';

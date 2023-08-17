@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
 import { useSelector } from 'react-redux';
 
 import dayjs from 'dayjs';
@@ -22,6 +22,8 @@ export default function ReadItem({ config }) {
       return;
     }
     const list = [];
+
+    // eslint-disable-next-line array-callback-return
     readColumns.map((props) => {
       const propsKey = props.dataIndex;
       const propsTitle = props.title;
@@ -31,6 +33,8 @@ export default function ReadItem({ config }) {
       list.push({ propsKey, label: propsTitle, value: value });
     });
     setListState(list);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentResult]);
 
   const show = isReadBoxOpen ? { display: 'block', opacity: 1 } : { display: 'none', opacity: 0 };

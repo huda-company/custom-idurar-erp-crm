@@ -23,19 +23,20 @@ import { selectCurrentItem } from '@/redux/crud/selectors';
 function SidePanelTopContent({ config, formElements }) {
   const { crudContextAction, state } = useCrudContext();
   const { entityDisplayLabels } = config;
-  const { panel, advancedBox, modal, readBox, editBox } = crudContextAction;
+  const { advancedBox, modal, editBox } = crudContextAction;
 
   const { isReadBoxOpen, isEditBoxOpen, isAdvancedBoxOpen } = state;
   const { result: currentItem } = useSelector(selectCurrentItem);
   const dispatch = useDispatch();
 
-  const [labels, setLabels] = useState('');
+  const [setLabels] = useState('');
   useEffect(() => {
     if (currentItem) {
       const currentlabels = entityDisplayLabels.map((x) => currentItem[x]).join(' ');
 
       setLabels(currentlabels);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentItem]);
 
   const removeItem = () => {
@@ -134,6 +135,7 @@ function AdminCrudModule({ config, createForm, updateForm }) {
 
   useLayoutEffect(() => {
     dispatch(crud.resetState());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
