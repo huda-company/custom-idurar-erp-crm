@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { Dropdown, Button, PageHeader, Table, Col } from 'antd';
+import { Dropdown, Button, PageHeader, Table } from 'antd';
 
 import { EllipsisOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,10 +32,12 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
   const handelDataTableLoad = useCallback((pagination) => {
     const options = { page: pagination.current || 1 };
     dispatch(crud.list({ entity, options }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     dispatch(crud.list({ entity }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

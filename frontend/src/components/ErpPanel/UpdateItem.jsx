@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Divider, Space } from 'antd';
+import { Form, Divider } from 'antd';
 import dayjs from 'dayjs';
-import { Button, PageHeader, Row, Col, Tag } from 'antd';
+import { Button, PageHeader } from 'antd';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { erp } from '@/redux/erp/actions';
@@ -34,13 +34,13 @@ export default function UpdateItem({ config, UpdateForm }) {
   const { current, isLoading, isSuccess } = useSelector(selectUpdatedItem);
   const [form] = Form.useForm();
   const [subTotal, setSubTotal] = useState(0);
-  const [autoCompleteValue, setAutoCompleteValue] = useState('');
 
-  const handelValuesChange = (changedValues, values) => {
+  const handelValuesChange = (values) => {
     const items = values['items'];
     let subTotal = 0;
 
     if (items) {
+      // eslint-disable-next-line array-callback-return
       items.map((item) => {
         if (item) {
           if (item.quantity && item.price) {
@@ -70,6 +70,7 @@ export default function UpdateItem({ config, UpdateForm }) {
       // }
       if (fieldsValue.items) {
         let newList = [...fieldsValue.items];
+        // eslint-disable-next-line array-callback-return
         newList.map((item) => {
           item.total = item.quantity * item.price;
         });
@@ -91,6 +92,7 @@ export default function UpdateItem({ config, UpdateForm }) {
       updatePanel.close();
       dispatch(erp.list({ entity }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   useEffect(() => {
@@ -116,6 +118,7 @@ export default function UpdateItem({ config, UpdateForm }) {
       form.setFieldsValue(current);
       setSubTotal(subTotal);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current]);
 
   return (

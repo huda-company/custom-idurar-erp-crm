@@ -19,7 +19,7 @@ export default function UpdatePassword({ config }) {
 
   const [form] = Form.useForm();
 
-  const { onFetch, result, isLoading, isSuccess } = useOnFetch();
+  const { onFetch, isLoading, isSuccess } = useOnFetch();
 
   const handelSubmit = (fieldsValue) => {
     const entity = 'admin/password-update/' + current._id;
@@ -41,6 +41,7 @@ export default function UpdatePassword({ config }) {
       form.resetFields();
       dispatch(crud.resetAction({ actionType: 'update' }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   const { isAdvancedBoxOpen } = state;

@@ -30,6 +30,7 @@ export default function CreateForm({ config, formElements }) {
       dispatch(crud.resetAction({ actionType: 'create' }));
       dispatch(crud.list({ entity }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   return (

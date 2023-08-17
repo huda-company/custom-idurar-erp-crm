@@ -35,6 +35,7 @@ const ContentBox = ({ children }) => {
     if (!isNavMenuClose) {
       panel.close();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isNavMenuClose]);
   return (
     <Content

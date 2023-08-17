@@ -5,6 +5,7 @@ import { createLogger } from 'redux-logger';
 import rootReducer from './rootReducer';
 import storePersist from './storePersist';
 
+// eslint-disable-next-line no-unused-vars
 const logger = createLogger();
 let middleware = [thunk];
 

@@ -1,15 +1,17 @@
 import { useProfileContext } from '@/context/profileContext';
 import uniqueId from '@/utils/uinqueId';
-import { CloseCircleOutlined, EditOutlined, LockOutlined, SaveOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, Divider, Form, PageHeader, Row } from 'antd';
-import React, { useState } from 'react';
+import { CloseCircleOutlined, SaveOutlined } from '@ant-design/icons';
+import { Button, Col, Form, PageHeader, Row } from 'antd';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import AdminForm from '@/forms/AdminForm';
 import UploadImg from './UploadImg';
 
 const UpdateAdmin = ({ config }) => {
   const { profileContextAction } = useProfileContext();
-  const { readPanel, updatePanel } = profileContextAction;
+  const { updatePanel } = profileContextAction;
+
+  // eslint-disable-next-line no-unused-vars
   const dispatch = useDispatch();
   const { ENTITY_NAME } = config;
 

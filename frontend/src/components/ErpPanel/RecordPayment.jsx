@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Divider, Button } from 'antd';
+import { Form, Button } from 'antd';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { erp } from '@/redux/erp/actions';
@@ -12,7 +12,7 @@ import Loading from '@/components/Loading';
 import PaymentInvoiceForm from '@/forms/PaymentInvoiceForm';
 
 export default function RecordPayment({ config }) {
-  let { entity, CREATE_ENTITY } = config;
+  let { entity } = config;
   const { erpContextAction } = useErpContext();
   const { recordPanel } = erpContextAction;
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ export default function RecordPayment({ config }) {
       recordPanel.close();
       dispatch(erp.list({ entity }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   const onSubmit = (fieldsValue) => {

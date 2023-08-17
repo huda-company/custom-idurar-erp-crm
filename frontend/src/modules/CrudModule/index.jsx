@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react';
-import { Row, Col, Button, Divider } from 'antd';
+import { Row, Col, Button } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import CreateForm from '@/components/CreateForm';
@@ -21,7 +21,7 @@ import CrudDataTable from './CrudDataTable';
 function SidePanelTopContent({ config, formElements }) {
   const { crudContextAction, state } = useCrudContext();
   const { entityDisplayLabels } = config;
-  const { panel, collapsedBox, modal, readBox, editBox } = crudContextAction;
+  const { modal, editBox } = crudContextAction;
 
   const { isReadBoxOpen, isEditBoxOpen } = state;
   const { result: currentItem } = useSelector(selectCurrentItem);
@@ -34,6 +34,7 @@ function SidePanelTopContent({ config, formElements }) {
 
       setLabels(currentlabels);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentItem]);
 
   const removeItem = () => {
@@ -87,7 +88,7 @@ function SidePanelTopContent({ config, formElements }) {
 function FixHeaderPanel({ config }) {
   const { crudContextAction } = useCrudContext();
 
-  const { panel, collapsedBox, modal, readBox, editBox } = crudContextAction;
+  const { collapsedBox } = crudContextAction;
 
   const addNewItem = () => {
     collapsedBox.close();
@@ -117,6 +118,7 @@ function CrudModule({ config, createForm, updateForm }) {
 
   useLayoutEffect(() => {
     dispatch(crud.resetState());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

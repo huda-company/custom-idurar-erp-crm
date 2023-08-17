@@ -43,7 +43,7 @@ function SearchItemComponent({ config, onRerender }) {
   };
 
   useEffect(() => {
-    if (debouncedValue != '') {
+    if (debouncedValue !== '') {
       const options = {
         q: debouncedValue,
         fields: searchFields,
@@ -53,10 +53,11 @@ function SearchItemComponent({ config, onRerender }) {
     return () => {
       cancel();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue]);
 
   const onSearch = (searchText) => {
-    if (searchText && searchText != '') {
+    if (searchText && searchText !== '') {
       isSearching.current = true;
       setSearching(true);
       setOptions([]);

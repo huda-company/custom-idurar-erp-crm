@@ -6,6 +6,8 @@ import SelectAsync from '@/components/SelectAsync';
 import { useMoney } from '@/settings';
 export default function PaymentInvoiceForm({ maxAmount = null, isUpdateForm = false }) {
   const { TextArea } = Input;
+
+  // eslint-disable-next-line no-unused-vars
   const money = useMoney();
   return (
     <>

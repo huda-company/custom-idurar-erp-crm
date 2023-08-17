@@ -4,7 +4,7 @@ import { AutoComplete, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { erp } from '@/redux/erp/actions';
-import { request } from '@/request';
+
 import { useErpContext } from '@/context/erp';
 import { selectSearchedItems } from '@/redux/erp/selectors';
 
@@ -68,12 +68,14 @@ export default function Search({ config }) {
   useEffect(() => {
     let optionResults = [];
 
+    // eslint-disable-next-line array-callback-return
     result.map((item) => {
       const labels = displayLabels.map((x) => item[x]).join(' ');
       optionResults.push({ label: labels, value: item[outputValue] });
     });
 
     setOptions(optionResults);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 
   return (

@@ -9,6 +9,7 @@ import { routesConfig } from './RoutesConfig';
 const Logout = lazy(() => import(/*webpackChunkName:'LogoutPage'*/ '@/pages/Logout'));
 const NotFound = lazy(() => import(/*webpackChunkName:'NotFoundPage'*/ '@/pages/NotFound'));
 
+// eslint-disable-next-line no-unused-vars
 const SubMenuRouter = ({ subMenuRouter }) => {
   subMenuRouter.map((subMenu) => {
     console.log('🚀 ~ file: AppRouter.jsx ~ line 25 ~ routeItem.hasSubMenu.map ~ subMenu', subMenu);

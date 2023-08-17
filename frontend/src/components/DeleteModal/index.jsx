@@ -32,6 +32,7 @@ export default function DeleteModal({ config }) {
 
       setDisplayItem(labels);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, current]);
 
   const handleOk = () => {
