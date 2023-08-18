@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+            path: /home/huda23aduh/custom-idurar-erp-crm
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -19,7 +21,7 @@ jobs:
           node-version: 16
 
       - name: cd into project dir
-        run: cd ~/custom-idurar-erp-crm/
+        run: cd /home/huda23aduh/custom-idurar-erp-crm
 
       - name: pull origin develop
         run: git pull origin develop
