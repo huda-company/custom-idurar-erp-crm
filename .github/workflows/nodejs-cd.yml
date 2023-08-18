@@ -10,7 +10,8 @@ jobs:
 
     steps:
       - name: cd using ssh command
-        uses: appleboy/ssh-action@master
+      - uses: actions/checkout@v2
+      - uses: google-github-actions/setup-gcloud@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
