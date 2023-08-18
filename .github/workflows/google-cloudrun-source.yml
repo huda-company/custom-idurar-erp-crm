@@ -50,7 +50,7 @@ jobs:
       - name: deploy using ssh
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}  # GCP VM's IP or hostname
+          host: ${{ secrets.HOST }}  # GCP VM's IP or hostname
           username: ${{ secrets.SSH_USERNAME }}  # SSH username (e.g., ubuntu)
           key: ${{ secrets.ERP_PUPUK_STAGING }}  # Private key from secret
           script: |
