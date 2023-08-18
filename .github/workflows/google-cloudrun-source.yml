@@ -55,6 +55,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Private key from secret
           script: |
             cd /home/huda23aduh/custom-idurar-erp-crm
+            git fetch origin
             git pull origin develop  # Update code
             git status
             npm install --only=prod
