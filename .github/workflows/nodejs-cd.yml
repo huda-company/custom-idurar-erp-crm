@@ -1,0 +1,24 @@
+name: CD
+
+on: 
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: cd using ssh command
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.ERP_PUPUK_STAGING }}
+          port: 22
+          script: |
+            cd ~/custom-idurar-erp-crm/
+            git pull origin main
+            git status
+            npm install --onlyprod
+            pm2 restart server
