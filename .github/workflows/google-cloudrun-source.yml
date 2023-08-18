@@ -57,6 +57,6 @@ jobs:
             cd /home/huda23aduh/custom-idurar-erp-crm
             git fetch origin
             git pull origin develop  # Update code
-            git status
+            # git status
             npm install --only=prod
             pm2 restart server
