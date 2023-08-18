@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: cd using ssh command
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
