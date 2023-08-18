@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-            path: /home/huda23aduh/custom-idurar-erp-crm
+      # - name: Checkout code
+      #   uses: actions/checkout@v2
+      #   with:
+      #       path: ./home/huda23aduh/custom-idurar-erp-crm
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
