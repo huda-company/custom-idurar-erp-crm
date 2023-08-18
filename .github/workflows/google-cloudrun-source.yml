@@ -18,6 +18,15 @@ jobs:
         with:
           node-version: 16
 
+      - name: cd into project dir
+        run: cd ~/custom-idurar-erp-crm/
+
+      - name: pull origin develop
+        run: git pull origin develop
+
+      - name: check git status
+        run: git status
+
       - name: Install dependencies
         run: npm install --only=prod
 
@@ -34,3 +43,6 @@ jobs:
       # - name: Deploy to GCP
       #   run: |
       #     gcloud app deploy --version=${GITHUB_SHA::8}
+
+      - name: restart pm2
+        run: pm2 restart server
