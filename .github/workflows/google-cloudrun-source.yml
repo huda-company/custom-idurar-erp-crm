@@ -53,7 +53,7 @@ jobs:
           host: ${{ secrets.HOST }}  # GCP VM's IP or hostname
           username: ${{ secrets.USERNAME }}  # SSH username (e.g., ubuntu)
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Private key from secret
-          script: |
+          run: |
             cd /home/huda23aduh/custom-idurar-erp-crm
             git fetch origin
             git pull origin develop  # Update code
