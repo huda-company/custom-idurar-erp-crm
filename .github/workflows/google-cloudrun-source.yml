@@ -10,27 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v2
       #   with:
-      #       path: ./home/huda23aduh/custom-idurar-erp-crm
+      #     node-version: 16
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
+      # - name: cd into project dir
+      #   run: cd /home/huda23aduh/custom-idurar-erp-crm
 
-      - name: cd into project dir
-        run: cd /home/huda23aduh/custom-idurar-erp-crm
+      # - name: pull origin develop
+      #   run: git pull origin develop
 
-      - name: pull origin develop
-        run: git pull origin develop
+      # - name: check git status
+      #   run: git status
 
-      - name: check git status
-        run: git status
-
-      - name: Install dependencies
-        run: npm install --only=prod
+      # - name: Install dependencies
+      #   run: npm install --only=prod
 
       # - name: Start application
       #   run: npm run start
@@ -46,5 +44,18 @@ jobs:
       #   run: |
       #     gcloud app deploy --version=${GITHUB_SHA::8}
 
-      - name: restart pm2
-        run: pm2 restart server
+      # - name: restart pm2
+      #   run: pm2 restart server
+
+      - name: deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}  # GCP VM's IP or hostname
+          username: ${{ secrets.SSH_USERNAME }}  # SSH username (e.g., ubuntu)
+          key: ${{ secrets.ERP_PUPUK_STAGING }}  # Private key from secret
+          script: |
+            cd /home/huda23aduh/custom-idurar-erp-crm
+            git pull origin develop  # Update code
+            git status
+            npm install --only=prod
+            pm2 restart server
