@@ -14,7 +14,7 @@ export const login = async ({ loginData }) => {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Headers': '*',
-
+        'Access-Control-Allow-Origin': '*',
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       redirect: 'follow', // manual, *follow, error
