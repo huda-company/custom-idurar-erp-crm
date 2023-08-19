@@ -13,10 +13,10 @@ let configStore = applyMiddleware(...middleware);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'development') {
   middleware = [...middleware];
   configStore = composeEnhancers(applyMiddleware(...middleware));
-}
+// }
 
 const initialState = storePersist.get('auth') ? { auth: storePersist.get('auth') } : {};
 
