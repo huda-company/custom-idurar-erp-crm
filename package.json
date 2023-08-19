@@ -10,7 +10,8 @@
     "dev": "nodemon ./server.js --ignore public/",
     "production": "NODE_ENV=production",
     "setup": "node ./setup/setup.js",
-    "reset": "node ./setup/reset.js"
+    "reset": "node ./setup/reset.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -33,6 +34,8 @@
     "resend": "^0.17.2"
   },
   "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.0",
     "nodemon": "^1.19.2"
   },
   "_moduleAliases": {
