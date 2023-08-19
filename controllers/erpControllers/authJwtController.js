@@ -14,10 +14,10 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
     const clientIP = req.connection.remoteAddress;
     let isLocalhost = false;
-    // if (clientIP === '127.0.0.1' || clientIP === '::1') {
-    //   // Connection is from localhost
-    //   isLocalhost = true;
-    // }
+    if (clientIP === '127.0.0.1' || clientIP === '::1') {
+      // Connection is from localhost
+      isLocalhost = true;
+    }
     // validate
     if (!email || !password)
       return res.status(400).json({

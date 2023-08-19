@@ -47,13 +47,13 @@ app.use((req, res, next) => {
   res.locals.h = helpers;
   res.locals.admin = req.admin || null;
   res.locals.currentPath = req.path;
-  // const clientIP = req.socket.remoteAddress;
-  // let isLocalhost = false;
-  // if (clientIP === '127.0.0.1' || clientIP === '::1') {
-  //   // Connection is from localhost
-  //   isLocalhost = true;
-  // }
-  // res.locals.isLocalhost = isLocalhost;
+  const clientIP = req.socket.remoteAddress;
+  let isLocalhost = false;
+  if (clientIP === '127.0.0.1' || clientIP === '::1') {
+    // Connection is from localhost
+    isLocalhost = true;
+  }
+  res.locals.isLocalhost = isLocalhost;
   next();
 });
 
