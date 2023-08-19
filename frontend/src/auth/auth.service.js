@@ -13,6 +13,8 @@ export const login = async ({ loginData }) => {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': '*',
+
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       redirect: 'follow', // manual, *follow, error
