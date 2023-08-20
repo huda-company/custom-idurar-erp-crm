@@ -4,8 +4,20 @@ import { REACT_APP_API_BASE_URL } from '@/config/serverApiConfig';
 import errorHandler from './errorHandler';
 import successHandler from './successHandler';
 
+const jwtToken = "Bearer " + window.localStorage.getItem("token").replace(/"/g,'')
+
+const config = {
+  headers: {
+    Authorization: jwtToken
+  }
+};
+
+console.log("config", config)
+
+
 axios.defaults.baseURL = REACT_APP_API_BASE_URL;
 axios.defaults.withCredentials = true;
+axios.defaults.headers = config
 
 const request = {
   create: async ({ entity, jsonData }) => {
@@ -108,7 +120,7 @@ const request = {
       }
       query = query.slice(0, -1);
 
-      const response = await axios.get(entity + '/list' + query);
+      const response = await axios.get(entity + '/list' + query, config);
 
       successHandler(response, {
         notifyOnSuccess: false,
