@@ -32,6 +32,8 @@ export const login = async ({ loginData }) => {
         notifyOnFailed: true,
       }
     );
+    localStorage.setItem('token', JSON.stringify(data.result.token.replaceAll('"', '')));
+
     return data;
   } catch (error) {
     return errorHandler(error);
