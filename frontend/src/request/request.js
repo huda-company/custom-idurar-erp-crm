@@ -6,25 +6,22 @@ import successHandler from './successHandler';
 
 const jwtToken = "Bearer " + window.localStorage.getItem("token").replace(/"/g,'')
 
-const config = {
+const axiosConfig = {
   headers: {
     Authorization: jwtToken
   }
 };
 
-console.log("config", config)
-
-
 axios.defaults.baseURL = REACT_APP_API_BASE_URL;
 axios.defaults.withCredentials = true;
-axios.defaults.headers = config
 
 const request = {
   create: async ({ entity, jsonData }) => {
     console.log('🚀 Create Request 🚀 ~ file: request.js ~ line 19 ~ create: ~ jsonData', jsonData);
 
     try {
-      const response = await axios.post(entity + '/create', jsonData);
+      const url = entity + '/create'
+      const response = await axios.post(url, jsonData, axiosConfig);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
@@ -36,7 +33,8 @@ const request = {
   },
   read: async ({ entity, id }) => {
     try {
-      const response = await axios.get(entity + '/read/' + id);
+      const url = entity + '/read/' + id
+      const response = await axios.get(url, axiosConfig);
       successHandler(response, {
         notifyOnSuccess: false,
         notifyOnFailed: true,
@@ -51,7 +49,8 @@ const request = {
     console.log('🚀 Update Request 🚀 ~ file: request.js ~ line 42 ~ update: ~ jsonData', jsonData);
 
     try {
-      const response = await axios.patch(entity + '/update/' + id, jsonData);
+      const url = entity + '/update/' + id
+      const response = await axios.patch(url, jsonData, axiosConfig);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
@@ -64,7 +63,8 @@ const request = {
 
   delete: async ({ entity, id, options = {} }) => {
     try {
-      const response = await axios.delete(entity + '/delete/' + id);
+      const url = entity + '/delete/' + id
+      const response = await axios.delete(url, axiosConfig);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
@@ -81,7 +81,8 @@ const request = {
       let equal = options.equal ? '&equal=' + options.equal : '';
       let query = `?${filter}${equal}`;
 
-      const response = await axios.get(entity + '/filter' + query);
+      const url = entity + '/filter' + query
+      const response = await axios.get(url, axiosConfig);
       successHandler(response, {
         notifyOnSuccess: false,
         notifyOnFailed: false,
@@ -100,7 +101,8 @@ const request = {
       }
       query = query.slice(0, -1);
       // headersInstance.cancelToken = source.token;
-      const response = await axios.get(entity + '/search' + query);
+      const url = entity + '/search' + query;
+      const response = await axios.get(url, axiosConfig);
 
       successHandler(response, {
         notifyOnSuccess: false,
@@ -120,7 +122,8 @@ const request = {
       }
       query = query.slice(0, -1);
 
-      const response = await axios.get(entity + '/list' + query, config);
+      const url = entity + '/list' + query
+      const response = await axios.get(url, axiosConfig);
 
       successHandler(response, {
         notifyOnSuccess: false,
@@ -134,7 +137,7 @@ const request = {
 
   post: async ({ entity, jsonData, options = {} }) => {
     try {
-      const response = await axios.post(entity, jsonData);
+      const response = await axios.post(entity, jsonData, axiosConfig);
 
       return response.data;
     } catch (error) {
@@ -143,7 +146,7 @@ const request = {
   },
   get: async ({ entity }) => {
     try {
-      const response = await axios.get(entity);
+      const response = await axios.get(entity, axiosConfig);
       return response.data;
     } catch (error) {
       return errorHandler(error);
@@ -151,7 +154,7 @@ const request = {
   },
   patch: async ({ entity, jsonData }) => {
     try {
-      const response = await axios.patch(entity, jsonData);
+      const response = await axios.patch(entity, jsonData, axiosConfig);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
