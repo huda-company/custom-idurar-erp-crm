@@ -38,4 +38,8 @@ module.exports = {
       },
     },
   ],
+  eslint: {
+    enable: true,
+    mode: 'extends', // You can use 'file' if you have a separate .eslintrc.js file
+  }
 };

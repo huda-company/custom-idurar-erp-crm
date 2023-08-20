@@ -4,6 +4,7 @@
  *  @returns {Document} Single Document
  */
 
+const i18n = require('i18n');
 const moment = require('moment');
 
 exports.read = async (Model, req, res) => {
@@ -197,7 +198,7 @@ exports.list = async (Model, req, res) => {
         success: true,
         result,
         pagination,
-        message: 'Successfully found all documents',
+        message: i18n.__('SUCCESS_FOUND_ALL_DATA_MSG'),
       });
     } else {
       return res.status(203).json({

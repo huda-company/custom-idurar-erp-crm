@@ -14,6 +14,7 @@ export const login =
 
     if (data.success === true) {
       window.localStorage.setItem('isLoggedIn', true);
+      window.localStorage.setItem('token', JSON.stringify(data.result.token).replace(/"/g,''));
       window.localStorage.setItem('auth', JSON.stringify(data.result.admin));
       dispatch({
         type: actionTypes.LOGIN_SUCCESS,

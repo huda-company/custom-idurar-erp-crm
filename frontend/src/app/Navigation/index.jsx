@@ -48,11 +48,12 @@ export default function Navigation() {
           <img
             src={logoIcon}
             alt="Logo"
+            style={{height:"67px"}}
             // style={{ margin: "0 auto 40px", display: "block" }}
           />
 
           {!showLogoApp && (
-            <img src={logoText} alt="Logo" style={{ marginTop: '3px', marginLeft: '10px' }} />
+            <img src={logoText} alt="Logo" style={{ height: "27px", width:"80px", marginTop: '3px' }} />
           )}
         </div>
         <Menu mode="inline">
