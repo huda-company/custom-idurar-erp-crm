@@ -13,6 +13,8 @@ export const login = async ({ loginData }) => {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Origin': '*',
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       redirect: 'follow', // manual, *follow, error
@@ -30,6 +32,8 @@ export const login = async ({ loginData }) => {
         notifyOnFailed: true,
       }
     );
+    localStorage.setItem('token', JSON.stringify(data.result.token.replaceAll('"', '')));
+
     return data;
   } catch (error) {
     return errorHandler(error);
