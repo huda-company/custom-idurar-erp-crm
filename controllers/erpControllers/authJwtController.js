@@ -9,7 +9,6 @@ const Admin = mongoose.model('Admin');
 require('dotenv').config({ path: '.variables.env' });
 
 exports.login = async (req, res) => {
-  console.log("bbb", process.env.NODE_ENV)
   try {
     const { email, password } = req.body;
     const clientIP = req.connection.remoteAddress;

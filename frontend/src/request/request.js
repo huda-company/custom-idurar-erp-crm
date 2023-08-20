@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { API_BASE_URL } from '@/config/serverApiConfig';
+import { REACT_APP_API_BASE_URL } from '@/config/serverApiConfig';
 
 import errorHandler from './errorHandler';
 import successHandler from './successHandler';
 
-axios.defaults.baseURL = API_BASE_URL;
+axios.defaults.baseURL = REACT_APP_API_BASE_URL;
 axios.defaults.withCredentials = true;
 
 const request = {
