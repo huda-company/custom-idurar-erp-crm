@@ -14,16 +14,6 @@ const axiosConfig = {
 
 axios.defaults.baseURL = REACT_APP_API_BASE_URL;
 axios.defaults.withCredentials = true;
-const bearerToken = JSON.parse(localStorage.getItem('token'));
-axios.defaults.headers = {
-  Authorization: `Bearer ${bearerToken}`,
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Headers': '*',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': '*',
-  mode: 'same-origin', // no-cors, *cors, same-origin
-  // 'Content-Type': 'application/x-www-form-urlencoded',
-};
 
 const request = {
   create: async ({ entity, jsonData }) => {

@@ -9,7 +9,6 @@ const Admin = mongoose.model('Admin');
 require('dotenv').config({ path: '.variables.env' });
 
 exports.login = async (req, res) => {
-
   try {
     const { email, password } = req.body;
     const clientIP = req.connection.remoteAddress;
@@ -63,10 +62,11 @@ exports.login = async (req, res) => {
       .status(200)
       .cookie('token', token, {
         maxAge: req.body.remember ? 365 * 24 * 60 * 60 * 1000 : null, // Cookie expires after 30 days
-        sameSite: 'none',
+        // sameSite: process.env.NODE_ENV === 'production' && !isLocalhost ? 'Lax' : 'none',
+        sameSite: 'Lax',
         httpOnly: true,
         secure: true,
-        // domain: 'https://9ffb-118-99-107-246.ngrok-free.app',
+        domain: req.hostname,
         Path: '/',
       })
       .json({
