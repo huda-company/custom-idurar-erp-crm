@@ -17,6 +17,8 @@ const errorHandlers = require('./handlers/errorHandlers');
 
 const { isValidAdminToken } = require('./controllers/erpControllers/authJwtController');
 
+const i18n = require('i18n');
+
 // create our Express app
 const app = express();
 // serves up static files from the public folder. Anything in public/ will just be served up as the file it is
@@ -28,6 +30,21 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//** localization
+i18n.configure({
+  locales: ['en', 'id'], // List of supported languages
+  directory: __dirname + '/locales', // Directory containing localization files
+  defaultLocale: 'id', // Default language
+  objectNotation: true, // Use dot notation to access nested keys
+});
+
+app.use(i18n.init);
+app.use((req, res, next) => {
+  i18n.setLocale(req.getLocale())
+  next();
+});
+//** localization
 
 // // Sessions allow us to Contact data on visitors from request to request
 // // This keeps admins logged in and allows us to send flash messages

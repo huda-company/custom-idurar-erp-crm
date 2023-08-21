@@ -9,7 +9,7 @@ const Admin = mongoose.model('Admin');
 require('dotenv').config({ path: '.variables.env' });
 
 exports.login = async (req, res) => {
-  console.log('bbb', process.env.NODE_ENV);
+
   try {
     const { email, password } = req.body;
     const clientIP = req.connection.remoteAddress;
@@ -88,7 +88,7 @@ exports.login = async (req, res) => {
 
 exports.isValidAdminToken = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    const token = req.headers.authorization.split(" ")[1];
 
     if (!token)
       return res.status(401).json({
