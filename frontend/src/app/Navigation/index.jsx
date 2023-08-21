@@ -15,6 +15,7 @@ import {
   TeamOutlined,
   UserOutlined,
   CreditCardOutlined,
+  UsergroupAddOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -60,6 +61,10 @@ export default function Navigation() {
           <Menu.Item key={'Dashboard'} icon={<DashboardOutlined />}>
             <Link to={'/'} />
             Dashboard
+          </Menu.Item>
+          <Menu.Item key={'Suplier'} icon={<UsergroupAddOutlined />}>
+            <Link to={'/suplier'} />
+            Suplier
           </Menu.Item>
           <Menu.Item key={'Customer'} icon={<CustomerServiceOutlined />}>
             <Link to={'/customer'} />
