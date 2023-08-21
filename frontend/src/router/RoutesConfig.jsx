@@ -36,6 +36,10 @@ export const routesConfig = [
     component: 'Dashboard',
   },
   {
+    path: '/suplier',
+    component: 'Suplier',
+  },
+  {
     path: '/customer',
     component: 'Customer',
   },
