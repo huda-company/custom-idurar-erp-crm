@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
-const orderFormSchema = new mongoose.Schema({
+const billSchema = new mongoose.Schema({
   removed: {
     type: Boolean,
     default: false
@@ -14,30 +14,32 @@ const orderFormSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  recurring: {
+    type: String,
+    default: '0'
+  },
   date: {
     type: Date,
     required: true
   },
-  dateExpired: {
+  expiredDate: {
     type: Date,
     required: true
   },
   supplier: {
     type: mongoose.Schema.ObjectId,
     ref: 'Supplier',
-    required: true
+    required: true,
+    autopopulate: true
   },
   items: [
     {
-      name: {
+      itemName: {
         type: String,
-        trim: true,
         required: true
       },
       description: {
-        type: String,
-        trim: true,
-        required: true
+        type: String
       },
       quantity: {
         type: Number,
@@ -54,16 +56,20 @@ const orderFormSchema = new mongoose.Schema({
     }
   ],
   taxRate: {
-    type: Number
+    type: Number,
+    default: 0
   },
   subTotal: {
-    type: Number
+    type: Number,
+    default: 0
   },
   taxTotal: {
-    type: Number
+    type: Number,
+    default: 0
   },
   total: {
-    type: Number
+    type: Number,
+    default: 0
   },
   credit: {
     type: Number,
@@ -73,20 +79,26 @@ const orderFormSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  expense: [
+  paymentBill: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: 'Expense'
+      ref: 'PaymentBill'
     }
   ],
   paymentStatus: {
     type: String,
-    trim: true,
     default: 'unpaid'
+  },
+  note: {
+    type: String
   },
   status: {
     type: String,
     default: 'draft'
+  },
+  pdfPath: {
+    type: String,
+    default: ''
   },
   updated: {
     type: Date,
@@ -98,4 +110,5 @@ const orderFormSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('OrderForm', orderFormSchema)
+billSchema.plugin(require('mongoose-autopopulate'))
+module.exports = mongoose.model('Bill', billSchema)

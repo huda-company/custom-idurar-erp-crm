@@ -1,27 +1,33 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 const itemSchema = new mongoose.Schema({
+  categoryId: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'ItemCategory',
+    required: true,
+    autopopulate: true
+  },
   removed: {
     type: Boolean,
-    default: false,
+    default: false
   },
   enabled: {
     type: Boolean,
-    default: true,
+    default: true
   },
   name: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    trim: true,
+    trim: true
   },
   price: {
-    type: Number,
-  },
-});
+    type: Number
+  }
+})
 
-module.exports = mongoose.model('Item', itemSchema);
+module.exports = mongoose.model('Item', itemSchema)

@@ -1,25 +1,24 @@
 // const crudController = require("./corsControllers/crudController");
-// module.exports = crudController.createCRUDController("Quote");
+// module.exports = crudController.createCRUDController("Invoice");
 
 const mongoose = require('mongoose')
-const Model = mongoose.model('Quote')
+const Model = mongoose.model('Bill')
 const custom = require('../corsControllers/custom')
-
+const sendMail = require('./mailInvoiceController')
 const crudController = require('../corsControllers/crudController')
-const methods = crudController.createCRUDController('Quote')
+const methods = crudController.createCRUDController('Bill')
 
 delete methods.create
 delete methods.update
 
 methods.create = async (req, res) => {
   try {
-    const { items = [], taxRate = 0 } = req.body
+    const { items = [], taxRate = 0, discount = 0 } = req.body
 
     // default
     let subTotal = 0
     let taxTotal = 0
     let total = 0
-    // let credit = 0;
 
     // Calculate the items array with subTotal, total, taxTotal
     items.forEach((item) => {
@@ -39,9 +38,12 @@ methods.create = async (req, res) => {
     body.total = total
     body.items = items
 
+    const paymentStatus = total - discount === 0 ? 'paid' : 'unpaid'
+
+    body.paymentStatus = paymentStatus
     // Creating a new document in the collection
     const result = await new Model(body).save()
-    const fileId = 'invoice-' + result._id + '.pdf'
+    const fileId = 'bill-' + result._id + '.pdf'
     const updateResult = await Model.findOneAndUpdate(
       { _id: result._id },
       { pdfPath: fileId },
@@ -51,7 +53,7 @@ methods.create = async (req, res) => {
     ).exec()
     // Returning successfull response
 
-    custom.generatePdf('Quote', { filename: 'quote', format: 'A4' }, result)
+    custom.generatePdf('Bill', { filename: 'Bill', format: 'A4' }, result)
 
     // Returning successfull response
     return res.status(200).json({
@@ -65,6 +67,7 @@ methods.create = async (req, res) => {
       return res.status(400).json({
         success: false,
         result: null,
+        error: err,
         message: 'Required fields are not supplied'
       })
     } else {
@@ -72,6 +75,7 @@ methods.create = async (req, res) => {
       return res.status(500).json({
         success: false,
         result: null,
+        error: err,
         message: 'Oops there is an Error'
       })
     }
@@ -80,13 +84,19 @@ methods.create = async (req, res) => {
 
 methods.update = async (req, res) => {
   try {
-    const { items = [], taxRate = 0 } = req.body
+    const previousInvoice = await Model.findOne({
+      _id: req.params.id,
+      removed: false
+    })
+
+    const { credit } = previousInvoice
+
+    const { items = [], taxRate = 0, discount = 0 } = req.body
 
     // default
     let subTotal = 0
     let taxTotal = 0
     let total = 0
-    // let credit = 0;
 
     // Calculate the items array with subTotal, total, taxTotal
     items.forEach((item) => {
@@ -105,8 +115,11 @@ methods.update = async (req, res) => {
     body.taxTotal = taxTotal
     body.total = total
     body.items = items
-    body.pdfPath = 'quote-' + req.params.id + '.pdf'
+    body.pdfPath = 'Bill-' + req.params.id + '.pdf'
     // Find document by id and updates with the required fields
+
+    const paymentStatus = total - discount === credit ? 'paid' : credit > 0 ? 'partially' : 'unpaid'
+    body.paymentStatus = paymentStatus
 
     const result = await Model.findOneAndUpdate({ _id: req.params.id, removed: false }, body, {
       new: true // return the new result instead of the old one
@@ -114,7 +127,7 @@ methods.update = async (req, res) => {
 
     // Returning successfull response
 
-    custom.generatePdf('Quote', { filename: 'invoice', format: 'A4' }, result)
+    custom.generatePdf('Bill', { filename: 'bill', format: 'A4' }, result)
     return res.status(200).json({
       success: true,
       result,
@@ -122,10 +135,13 @@ methods.update = async (req, res) => {
     })
   } catch (err) {
     // If err is thrown by Mongoose due to required validations
+    // eslint-disable-next-line no-console
+    console.log(err)
     if (err.name === 'ValidationError') {
       return res.status(400).json({
         success: false,
         result: null,
+        error: err,
         message: 'Required fields are not supplied'
       })
     } else {
@@ -133,6 +149,7 @@ methods.update = async (req, res) => {
       return res.status(500).json({
         success: false,
         result: null,
+        error: err,
         message: 'Oops there is an Error'
       })
     }
@@ -191,8 +208,8 @@ methods.update = async (req, res) => {
 //       .exec();
 
 //     await custom.generatePdf(
-//       "Quote",
-//       { filename: "Quote report", format: "A5" },
+//       "Invoice",
+//       { filename: "Invoice report", format: "A5" },
 //       result,
 //       function (callback) {
 //         if (callback.hasOwnProperty("success") && callback.success) {
@@ -202,7 +219,7 @@ methods.update = async (req, res) => {
 //           res.status(200).json({
 //             success: true,
 //             data: data,
-//             message: "Successfully updated the Quote in Model",
+//             message: "Successfully updated the Invoice in Model",
 //           });
 //         } else {
 //           // Server Error
@@ -233,4 +250,5 @@ methods.update = async (req, res) => {
 //   }
 // };
 
+methods.sendMail = sendMail
 module.exports = methods

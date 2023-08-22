@@ -11,6 +11,9 @@
     "production": "NODE_ENV=production",
     "setup": "node ./setup/setup.js",
     "reset": "node ./setup/reset.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix && npm run format",
+    "format": "prettier --write .",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -23,6 +26,8 @@
     "helmet": "^4.6.0",
     "html-pdf": "^3.0.1",
     "i18n": "^0.15.1",
+    "joi": "^17.9.2",
+    "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
     "module-alias": "^2.2.2",
@@ -35,9 +40,20 @@
     "resend": "^0.17.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "eslint": "^8.47.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-n": "^16.0.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-promise": "^6.1.1",
     "husky": "^8.0.3",
-    "lint-staged": "^14.0.0",
-    "nodemon": "^1.19.2"
+    "lint-staged": "^14.0.1",
+    "nodemon": "^1.19.2",
+    "prettier": "^3.0.2"
   },
   "_moduleAliases": {
     "@": "."
@@ -46,6 +62,18 @@
   "main": "app.js",
   "keywords": [],
   "author": "Salah Eddine Lalami",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "license": "MIT",
   "repository": {
     "type": "git",

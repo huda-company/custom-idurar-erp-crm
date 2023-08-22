@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
-const paymentModeSchema = new mongoose.Schema({
+const itemCategoriesSchema = new mongoose.Schema({
   removed: {
     type: Boolean,
     default: false
@@ -10,25 +10,15 @@ const paymentModeSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  isDefault: {
-    type: Boolean,
-    default: false
-  },
   name: {
     type: String,
+    trim: true,
     required: true
   },
   description: {
     type: String,
-    required: true
-  },
-  ref: {
-    type: String
-  },
-  created: {
-    type: Date,
-    default: Date.now
+    trim: true
   }
 })
 
-module.exports = mongoose.model('PaymentMode', paymentModeSchema)
+module.exports = mongoose.model('ItemCategories', itemCategoriesSchema)

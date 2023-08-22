@@ -1,15 +1,15 @@
-const express = require('express');
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
 
-const { catchErrors } = require('@/handlers/errorHandlers');
+const { catchErrors } = require('../../handlers/errorHandlers')
 const {
   isValidAdminToken,
   login,
-  logout,
-} = require('@/controllers/erpControllers/authJwtController');
+  logout
+} = require('../../controllers/erpControllers/authJwtController')
 
-router.route('/login').post(catchErrors(login));
-router.route('/logout').post(isValidAdminToken, catchErrors(logout));
+router.route('/login').post(catchErrors(login))
+router.route('/logout').post(isValidAdminToken, catchErrors(logout))
 
-module.exports = router;
+module.exports = router

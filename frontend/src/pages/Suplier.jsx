@@ -6,6 +6,7 @@ import SupplierForm from '@/forms/SupplierForm';
 
 function Suplier() {
   const entity = 'supplier';
+
   const searchConfig = {
     displayLabels: ['company'],
     searchFields: 'company,managerSurname,managerName',
@@ -89,8 +90,10 @@ function Suplier() {
   };
   return (
     <CrudModule
+
       createForm={<SupplierForm />}
       updateForm={<SupplierForm isUpdateForm={true} />}
+
       config={config}
     />
   );

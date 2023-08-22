@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 // const AutoIncrement = require('mongoose-sequence')(mongoose)
 mongoose.Promise = global.Promise
 
-const paymentInvoiceSchema = new mongoose.Schema({
+const paymentBillSchema = new mongoose.Schema({
   removed: {
     type: Boolean,
     default: false
@@ -11,9 +11,9 @@ const paymentInvoiceSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  client: {
+  supplier: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Client',
+    ref: 'Supplier',
     autopopulate: true,
     required: true
   },
@@ -52,5 +52,5 @@ const paymentInvoiceSchema = new mongoose.Schema({
     default: Date.now
   }
 })
-paymentInvoiceSchema.plugin(require('mongoose-autopopulate'))
-module.exports = mongoose.model('PaymentInvoice', paymentInvoiceSchema)
+paymentBillSchema.plugin(require('mongoose-autopopulate'))
+module.exports = mongoose.model('PaymentBill', paymentBillSchema)
