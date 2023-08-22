@@ -2,3 +2,12 @@
 build
 coverage
 node_modules
+frontend/
+dist/
+
+.github/workflows/google-cloudrun-source.yml
+.github/workflows/github-repo-stats.yml
+.github/workflows/github-repo-stats.yml
+.github/workflows/nodejs-cd.yml
+
+docker-compose.yml
