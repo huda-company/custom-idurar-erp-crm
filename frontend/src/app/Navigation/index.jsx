@@ -49,12 +49,16 @@ export default function Navigation() {
           <img
             src={logoIcon}
             alt="Logo"
-            style={{height:"67px"}}
+            style={{ height: '67px' }}
             // style={{ margin: "0 auto 40px", display: "block" }}
           />
 
           {!showLogoApp && (
-            <img src={logoText} alt="Logo" style={{ height: "27px", width:"80px", marginTop: '3px' }} />
+            <img
+              src={logoText}
+              alt="Logo"
+              style={{ height: '27px', width: '80px', marginTop: '3px' }}
+            />
           )}
         </div>
         <Menu mode="inline">
@@ -62,10 +66,30 @@ export default function Navigation() {
             <Link to={'/'} />
             Dashboard
           </Menu.Item>
-          <Menu.Item key={'Suplier'} icon={<UsergroupAddOutlined />}>
-            <Link to={'/suplier'} />
-            Suplier
-          </Menu.Item>
+          <SubMenu key={'Purchasing'} icon={<SettingOutlined />} title={'Purchasing'}>
+            <Menu.Item key={'Suplier'} icon={<UsergroupAddOutlined />}>
+              <Link to={'/suplier'} />
+              Suplier
+            </Menu.Item>
+            <Menu.Item key={'Bills'} icon={<UsergroupAddOutlined />}>
+              <Link to={'/bills'} />
+              Bills
+            </Menu.Item>
+          </SubMenu>
+          <SubMenu key={'Settings'} icon={<SettingOutlined />} title={'Settings'}>
+            <Menu.Item key={'SettingsPage'}>
+              <Link to={'/settings'} />
+              General Settings
+            </Menu.Item>
+            <Menu.Item key={'PaymentMode'}>
+              <Link to={'/payment/mode'} />
+              Payment Mode
+            </Menu.Item>
+            <Menu.Item key={'Role'}>
+              <Link to={'/role'} />
+              Role
+            </Menu.Item>
+          </SubMenu>
           <Menu.Item key={'Customer'} icon={<CustomerServiceOutlined />}>
             <Link to={'/customer'} />
             Customer
@@ -90,20 +114,6 @@ export default function Navigation() {
             <Link to={'/admin'} />
             Admin
           </Menu.Item>
-          <SubMenu key={'Settings'} icon={<SettingOutlined />} title={'Settings'}>
-            <Menu.Item key={'SettingsPage'}>
-              <Link to={'/settings'} />
-              General Settings
-            </Menu.Item>
-            <Menu.Item key={'PaymentMode'}>
-              <Link to={'/payment/mode'} />
-              Payment Mode
-            </Menu.Item>
-            <Menu.Item key={'Role'}>
-              <Link to={'/role'} />
-              Role
-            </Menu.Item>
-          </SubMenu>
         </Menu>
       </Sider>
     </>

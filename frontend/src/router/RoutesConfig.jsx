@@ -79,4 +79,8 @@ export const routesConfig = [
     path: '/profile',
     component: 'Profile',
   },
+  {
+    path: '/bills',
+    component: 'Bills',
+  },
 ];

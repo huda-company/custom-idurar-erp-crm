@@ -2,9 +2,11 @@ import React from 'react';
 
 import CrudModule from '@/modules/CrudModule';
 import CustomerForm from '@/forms/CustomerForm';
+import SupplierForm from '@/forms/SupplierForm';
 
 function Suplier() {
-  const entity = 'client';
+  const entity = 'supplier';
+
   const searchConfig = {
     displayLabels: ['company'],
     searchFields: 'company,managerSurname,managerName',
@@ -32,7 +34,19 @@ function Suplier() {
     },
     {
       title: 'Phone',
-      dataIndex: 'phone',
+      dataIndex: 'tel',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'tel',
+    },
+    {
+      title: 'Bank Account',
+      dataIndex: 'bankAccount',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
     },
   ];
   const dataTableColumns = [
@@ -76,8 +90,10 @@ function Suplier() {
   };
   return (
     <CrudModule
-      createForm={<CustomerForm />}
-      updateForm={<CustomerForm isUpdateForm={true} />}
+
+      createForm={<SupplierForm />}
+      updateForm={<SupplierForm isUpdateForm={true} />}
+
       config={config}
     />
   );
