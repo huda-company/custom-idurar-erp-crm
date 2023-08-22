@@ -6,6 +6,7 @@
 
 const i18n = require('i18n')
 const moment = require('moment')
+const { createBL } = require('../../businessLogic/createBL')
 
 exports.read = async (Model, req, res) => {
   try {
@@ -44,33 +45,40 @@ exports.read = async (Model, req, res) => {
  */
 
 exports.create = async (Model, req, res) => {
-  try {
-    // Creating a new document in the collection
-
-    const result = await new Model(req.body).save()
+  const resBL = await createBL(Model, req)
+  if (resBL.success === false) {
     // Returning successfull response
-    return res.status(200).json({
-      success: true,
-      result,
-      message: 'Successfully Created the document in Model '
+    return res.status(400).json({
+      success: false,
+      message: resBL.msg
     })
-  } catch (err) {
-    // If err is thrown by Mongoose due to required validations
-    if (err.name === 'ValidationError') {
-      return res.status(400).json({
-        success: false,
-        result: null,
-        message: 'Required fields are not supplied',
-        error: err
+  } else {
+    try {
+      // Creating a new document in the collection
+      const result = await new Model(req.body).save()
+      return res.status(200).json({
+        success: true,
+        result,
+        message: resBL.msg
       })
-    } else {
-      // Server Error
-      return res.status(500).json({
-        success: false,
-        result: null,
-        message: 'Oops there is an Error',
-        error: err
-      })
+    } catch (err) {
+      // If err is thrown by Mongoose due to required validations
+      if (err.name === 'ValidationError') {
+        return res.status(400).json({
+          success: false,
+          result: null,
+          message: 'Required fields are not supplied',
+          error: err
+        })
+      } else {
+        // Server Error
+        return res.status(500).json({
+          success: false,
+          result: null,
+          message: 'Oops there is an Erroraaa',
+          error: err
+        })
+      }
     }
   }
 }
