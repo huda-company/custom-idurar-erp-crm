@@ -13,6 +13,7 @@ const employeeController = require('@/controllers/erpControllers/employeeControl
 const paymentModeController = require('@/controllers/erpControllers/paymentModeController')
 const clientController = require('@/controllers/erpControllers/clientController')
 const invoiceController = require('@/controllers/erpControllers/invoiceController')
+const billController = require('@/controllers/erpControllers/invoiceController')
 const itemCategoryController = require('@/controllers/erpControllers/itemCategoriesController')
 const itemController = require('@/controllers/erpControllers/itemController')
 const quoteController = require('@/controllers/erpControllers/quoteController')
@@ -102,6 +103,18 @@ router.route('/invoice/filter').get(catchErrors(invoiceController.filter))
 
 router.route('/invoice/pdf/:id').get(catchErrors(invoiceController.generatePDF))
 router.route('/invoice/mail').post(catchErrors(invoiceController.sendMail))
+
+// //_____________________________________API for bills_____________________
+router.route('/bill/create').post(catchErrors(billController.create))
+router.route('/bill/read/:id').get(catchErrors(billController.read))
+router.route('/bill/update/:id').patch(catchErrors(billController.update))
+router.route('/bill/delete/:id').delete(catchErrors(billController.delete))
+router.route('/bill/search').get(catchErrors(billController.search))
+router.route('/bill/list').get(catchErrors(billController.list))
+router.route('/bill/filter').get(catchErrors(billController.filter))
+
+router.route('/bill/pdf/:id').get(catchErrors(billController.generatePDF))
+router.route('/bill/mail').post(catchErrors(billController.sendMail))
 
 // //_______________________________________API for item Categories_____________________
 router.route('/itemCategories/create').post(catchErrors(itemCategoryController.create))
