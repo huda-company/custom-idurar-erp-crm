@@ -1,79 +1,79 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 const supplierSchema = new mongoose.Schema({
   removed: {
     type: Boolean,
-    default: false,
+    default: false
   },
   enabled: {
     type: Boolean,
-    default: true,
+    default: true
   },
   company: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   managerName: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   managerSurname: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   bankAccount: {
     type: String,
-    trim: true,
+    trim: true
   },
   RC: {
     type: String,
-    trim: true,
+    trim: true
   },
   AI: {
     type: String,
-    trim: true,
+    trim: true
   },
   NIF: {
     type: String,
-    trim: true,
+    trim: true
   },
   NIS: {
     type: String,
-    trim: true,
+    trim: true
   },
   address: {
     type: String,
-    trim: true,
+    trim: true
   },
   tel: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   fax: {
     type: String,
-    trim: true,
+    trim: true
   },
   cell: {
     type: String,
-    trim: true,
+    trim: true
   },
   email: {
     type: String,
-    trim: true,
+    trim: true
   },
   website: {
     type: String,
-    trim: true,
+    trim: true
   },
   created: {
     type: Date,
-    default: Date.now,
-  },
-});
+    default: Date.now
+  }
+})
 
-module.exports = mongoose.model('Supplier', supplierSchema);
+module.exports = mongoose.model('Supplier', supplierSchema)

@@ -1,101 +1,101 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 const orderFormSchema = new mongoose.Schema({
   removed: {
     type: Boolean,
-    default: false,
+    default: false
   },
   number: {
     type: Number,
-    required: true,
+    required: true
   },
   year: {
     type: Number,
-    required: true,
+    required: true
   },
   date: {
     type: Date,
-    required: true,
+    required: true
   },
   dateExpired: {
     type: Date,
-    required: true,
+    required: true
   },
   supplier: {
     type: mongoose.Schema.ObjectId,
     ref: 'Supplier',
-    required: true,
+    required: true
   },
   items: [
     {
       name: {
         type: String,
         trim: true,
-        required: true,
+        required: true
       },
       description: {
         type: String,
         trim: true,
-        required: true,
+        required: true
       },
       quantity: {
         type: Number,
-        required: true,
+        required: true
       },
       price: {
         type: Number,
-        required: true,
+        required: true
       },
       total: {
         type: Number,
-        required: true,
-      },
-    },
+        required: true
+      }
+    }
   ],
   taxRate: {
-    type: Number,
+    type: Number
   },
   subTotal: {
-    type: Number,
+    type: Number
   },
   taxTotal: {
-    type: Number,
+    type: Number
   },
   total: {
-    type: Number,
+    type: Number
   },
   credit: {
     type: Number,
-    default: 0,
+    default: 0
   },
   discount: {
     type: Number,
-    default: 0,
+    default: 0
   },
   expense: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: 'Expense',
-    },
+      ref: 'Expense'
+    }
   ],
   paymentStatus: {
     type: String,
     trim: true,
-    default: 'unpaid',
+    default: 'unpaid'
   },
   status: {
     type: String,
-    default: 'draft',
+    default: 'draft'
   },
   updated: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   created: {
     type: Date,
-    default: Date.now,
-  },
-});
+    default: Date.now
+  }
+})
 
-module.exports = mongoose.model('OrderForm', orderFormSchema);
+module.exports = mongoose.model('OrderForm', orderFormSchema)

@@ -1,92 +1,92 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 const clientSchema = new mongoose.Schema({
   removed: {
     type: Boolean,
-    default: false,
+    default: false
   },
   enabled: {
     type: Boolean,
-    default: true,
+    default: true
   },
   company: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   managerName: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   managerSurname: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   bankAccount: {
     type: String,
-    trim: true,
+    trim: true
   },
   companyRegNumber: {
     type: String,
-    trim: true,
+    trim: true
   },
   companyTaxNumber: {
     type: String,
-    trim: true,
+    trim: true
   },
   companyTaxID: {
     type: String,
-    trim: true,
+    trim: true
   },
   customField: [
     {
       fieldName: {
         type: String,
-        trim: true,
+        trim: true
       },
       fieldValue: {
         type: String,
-        trim: true,
-      },
-    },
+        trim: true
+      }
+    }
   ],
   address: {
     type: String,
-    trim: true,
+    trim: true
   },
   country: {
     type: String,
-    trim: true,
+    trim: true
   },
   phone: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   fax: {
     type: String,
-    trim: true,
+    trim: true
   },
   cell: {
     type: String,
-    trim: true,
+    trim: true
   },
   email: {
     type: String,
     trim: true,
-    lowercase: true,
+    lowercase: true
   },
   website: {
     type: String,
-    trim: true,
+    trim: true
   },
   created: {
     type: Date,
-    default: Date.now,
-  },
-});
+    default: Date.now
+  }
+})
 
-module.exports = mongoose.model('Client', clientSchema);
+module.exports = mongoose.model('Client', clientSchema)

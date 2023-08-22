@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 const settingsSchema = new mongoose.Schema({
   settingsID: {
@@ -7,19 +7,19 @@ const settingsSchema = new mongoose.Schema({
     trim: true,
     required: true,
     unique: true,
-    lowercase: true,
+    lowercase: true
   },
   name: {
     type: String,
     trim: true,
     unique: true,
     lowercase: true,
-    required: true,
+    required: true
   },
   value: {
     type: mongoose.Schema.Types.Mixed,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-module.exports = mongoose.model('Settings', settingsSchema);
+module.exports = mongoose.model('Settings', settingsSchema)
