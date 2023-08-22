@@ -1,32 +1,34 @@
-const fs = require('fs');
-const path = require('path');
-const custom = require('../corsControllers/custom');
-const { SendInvoice } = require('../../emailTemplate/SendInvoice');
-const mongoose = require('mongoose');
-const InvoiceModel = mongoose.model('Invoice');
-const ClientModel = mongoose.model('Client');
-const ObjectId = mongoose.Types.ObjectId;
-const { Resend } = require('resend');
+/* eslint-disable no-throw-literal */
+/* eslint-disable no-undef */
+const fs = require('fs')
+const path = require('path')
+const custom = require('../corsControllers/custom')
+const { SendInvoice } = require('../../emailTemplate/SendInvoice')
+const mongoose = require('mongoose')
+const InvoiceModel = mongoose.model('Invoice')
+const ClientModel = mongoose.model('Client')
+const ObjectId = mongoose.Types.ObjectId
+const { Resend } = require('resend')
 
 module.exports = sendMail = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.body
 
   // Throw error if no id
   if (!id) {
-    throw { name: 'ValidationError' };
+    throw { name: 'ValidationError' }
   }
 
   try {
-    const result = await InvoiceModel.findById(ObjectId(id)).exec();
+    const result = await InvoiceModel.findById(ObjectId(id)).exec()
 
     // Throw error if no result
     if (!result) {
-      throw { name: 'ValidationError' };
+      throw { name: 'ValidationError' }
     }
 
     // Continue process if result is returned
-    const { client } = result;
-    const { email, managerName } = await ClientModel.findById(client).exec();
+    const { client } = result
+    const { email, managerName } = await ClientModel.findById(client).exec()
 
     await custom
       .generatePdf(
@@ -35,14 +37,14 @@ module.exports = sendMail = async (req, res) => {
         result,
         async (fileLocation) => {
           // Send the mail using the details gotten from the client
-          const { id: mailId } = await sendViaApi(email, managerName, fileLocation);
+          const { id: mailId } = await sendViaApi(email, managerName, fileLocation)
 
           // Returning successfull response
           return res.status(200).json({
             success: true,
             result: mailId,
-            message: `Successfully sent invoice ${id} to ${email}`,
-          });
+            message: `Successfully sent invoice ${id} to ${email}`
+          })
         }
       )
       .catch((err) => {
@@ -50,44 +52,44 @@ module.exports = sendMail = async (req, res) => {
           success: false,
           result: null,
           error: err,
-          message: 'Oops there is an Error',
-        });
-      });
+          message: 'Oops there is an Error'
+        })
+      })
   } catch (err) {
     // If err is thrown by Mongoose due to required validations
-    if (err.name == 'ValidationError') {
+    if (err.name === 'ValidationError') {
       return res.status(400).json({
         success: false,
         result: null,
         error: err,
-        message: 'Required fields are not supplied',
-      });
-    } else if (err.name == 'BSONTypeError') {
+        message: 'Required fields are not supplied'
+      })
+    } else if (err.name === 'BSONTypeError') {
       // If err is thrown by Mongoose due to invalid ID
       return res.status(400).json({
         success: false,
         result: null,
         error: err,
-        message: 'Invalid ID',
-      });
+        message: 'Invalid ID'
+      })
     } else {
       // Server Error
       return res.status(500).json({
         success: false,
         result: null,
         error: err,
-        message: 'Oops there is an Error',
-      });
+        message: 'Oops there is an Error'
+      })
     }
   }
-};
+}
 
 const sendViaApi = async (email, name, filePath) => {
-  const absolutePath = path.normalize(filePath);
-  const resend = new Resend(process.env.RESEND_API);
+  const absolutePath = path.normalize(filePath)
+  const resend = new Resend(process.env.RESEND_API)
 
   // Read the file to be attatched
-  const attatchedFile = fs.readFileSync(absolutePath);
+  const attatchedFile = fs.readFileSync(absolutePath)
 
   // Send the mail using the send method
   const data = await resend.emails.send({
@@ -97,11 +99,11 @@ const sendViaApi = async (email, name, filePath) => {
     attachments: [
       {
         filename: 'Invoice.pdf',
-        content: attatchedFile,
-      },
+        content: attatchedFile
+      }
     ],
-    html: SendInvoice({ name }),
-  });
+    html: SendInvoice({ name })
+  })
 
-  return data;
-};
+  return data
+}

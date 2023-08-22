@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 exports.SendInvoice = ({ title = 'Invoice from Idurar', name = '', time = new Date() }) => {
   return `
     <div>
@@ -16,5 +17,5 @@ exports.SendInvoice = ({ title = 'Invoice from Idurar', name = '', time = new Da
             <p data-id="react-email-text" style="font-size:14px;line-height:24px;margin:16px 0">Here&#x27;s the invoice you requested at ${time}</p>
         </body>
     </div>
-    `;
-};
+    `
+}

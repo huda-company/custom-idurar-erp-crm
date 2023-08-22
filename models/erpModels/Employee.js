@@ -1,82 +1,82 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 const employeeSchema = new mongoose.Schema({
   removed: {
     type: Boolean,
-    default: false,
+    default: false
   },
   enabled: {
     type: Boolean,
-    default: true,
+    default: true
   },
   name: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   surname: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   birthday: {
     type: Date,
-    required: true,
+    required: true
   },
   birthplace: {
-    type: String,
+    type: String
   },
   gender: {
     type: String,
-    required: true,
+    required: true
   },
   photo: {
     type: String,
-    trim: true,
+    trim: true
   },
   department: {
     type: String,
-    required: true,
+    required: true
   },
   position: {
     type: String,
-    required: true,
+    required: true
   },
   address: {
     type: String,
-    trim: true,
+    trim: true
   },
   state: {
-    type: String,
+    type: String
   },
   phone: {
     type: String,
-    trim: true,
+    trim: true
   },
   email: {
     type: String,
-    trim: true,
+    trim: true
   },
   urgentContact: {
     type: String,
-    trim: true,
+    trim: true
   },
   status: {
     type: String,
-    default: '1',
+    default: '1'
   },
   created: {
     type: Date,
-    default: Date.now,
-  },
-});
-employeeSchema.plugin(require('mongoose-autopopulate'));
+    default: Date.now
+  }
+})
+employeeSchema.plugin(require('mongoose-autopopulate'))
 employeeSchema.index({
   name: 'text',
   surname: 'text',
   birthday: 'text',
-  status: 'text',
-});
+  status: 'text'
+})
 
-module.exports = mongoose.model('Employee', employeeSchema);
+module.exports = mongoose.model('Employee', employeeSchema)

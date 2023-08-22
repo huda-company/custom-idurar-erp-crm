@@ -1,32 +1,32 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 const roleSchema = new mongoose.Schema({
   removed: {
     type: Boolean,
-    default: false,
+    default: false
   },
   codeName: {
     type: String,
     lowercase: true,
     trim: true,
-    required: true,
+    required: true
   },
   displayName: {
     type: String,
     trim: true,
-    required: true,
+    required: true
   },
   dashboardType: {
     type: String,
-    trim: true,
+    trim: true
   },
   authorizedPages: [{ type: String, lowercase: true, trim: true }],
   permissions: [{ type: mongoose.Schema.ObjectId, ref: 'Permission' }],
   created: {
     type: Date,
-    default: Date.now,
-  },
-});
+    default: Date.now
+  }
+})
 
-module.exports = mongoose.model('Role', roleSchema);
+module.exports = mongoose.model('Role', roleSchema)

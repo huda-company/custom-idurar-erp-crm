@@ -1,34 +1,34 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 const paymentModeSchema = new mongoose.Schema({
   removed: {
     type: Boolean,
-    default: false,
+    default: false
   },
   enabled: {
     type: Boolean,
-    default: true,
+    default: true
   },
   isDefault: {
     type: Boolean,
-    default: false,
+    default: false
   },
   name: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   ref: {
-    type: String,
+    type: String
   },
   created: {
     type: Date,
-    default: Date.now,
-  },
-});
+    default: Date.now
+  }
+})
 
-module.exports = mongoose.model('PaymentMode', paymentModeSchema);
+module.exports = mongoose.model('PaymentMode', paymentModeSchema)
