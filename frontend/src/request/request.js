@@ -1,16 +1,13 @@
 import axios from 'axios';
-import { REACT_APP_API_BASE_URL } from '@/config/serverApiConfig';
+import { REACT_APP_API_BASE_URL, axiosConfig } from '@/config/serverApiConfig';
 
 import errorHandler from './errorHandler';
 import successHandler from './successHandler';
 
 const jwtToken = "Bearer " + window.localStorage.getItem("token").replace(/"/g,'')
 
-const axiosConfig = {
-  headers: {
-    Authorization: jwtToken
-  }
-};
+const axiosConf = axiosConfig
+axiosConf.headers.Authorization = jwtToken
 
 axios.defaults.baseURL = REACT_APP_API_BASE_URL;
 axios.defaults.withCredentials = true;
@@ -21,7 +18,7 @@ const request = {
 
     try {
       const url = entity + '/create'
-      const response = await axios.post(url, jsonData, axiosConfig);
+      const response = await axios.post(url, jsonData, axiosConf);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
@@ -34,7 +31,7 @@ const request = {
   read: async ({ entity, id }) => {
     try {
       const url = entity + '/read/' + id
-      const response = await axios.get(url, axiosConfig);
+      const response = await axios.get(url, axiosConf);
       successHandler(response, {
         notifyOnSuccess: false,
         notifyOnFailed: true,
@@ -50,7 +47,7 @@ const request = {
 
     try {
       const url = entity + '/update/' + id
-      const response = await axios.patch(url, jsonData, axiosConfig);
+      const response = await axios.patch(url, jsonData, axiosConf);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
@@ -64,7 +61,7 @@ const request = {
   delete: async ({ entity, id, options = {} }) => {
     try {
       const url = entity + '/delete/' + id
-      const response = await axios.delete(url, axiosConfig);
+      const response = await axios.delete(url, axiosConf);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,
@@ -82,7 +79,7 @@ const request = {
       let query = `?${filter}${equal}`;
 
       const url = entity + '/filter' + query
-      const response = await axios.get(url, axiosConfig);
+      const response = await axios.get(url, axiosConf);
       successHandler(response, {
         notifyOnSuccess: false,
         notifyOnFailed: false,
@@ -102,7 +99,7 @@ const request = {
       query = query.slice(0, -1);
       // headersInstance.cancelToken = source.token;
       const url = entity + '/search' + query;
-      const response = await axios.get(url, axiosConfig);
+      const response = await axios.get(url, axiosConf);
 
       successHandler(response, {
         notifyOnSuccess: false,
@@ -123,7 +120,7 @@ const request = {
       query = query.slice(0, -1);
 
       const url = entity + '/list' + query
-      const response = await axios.get(url, axiosConfig);
+      const response = await axios.get(url, axiosConf);
 
       successHandler(response, {
         notifyOnSuccess: false,
@@ -137,7 +134,7 @@ const request = {
 
   post: async ({ entity, jsonData, options = {} }) => {
     try {
-      const response = await axios.post(entity, jsonData, axiosConfig);
+      const response = await axios.post(entity, jsonData, axiosConf);
 
       return response.data;
     } catch (error) {
@@ -146,7 +143,7 @@ const request = {
   },
   get: async ({ entity }) => {
     try {
-      const response = await axios.get(entity, axiosConfig);
+      const response = await axios.get(entity, axiosConf);
       return response.data;
     } catch (error) {
       return errorHandler(error);
@@ -154,7 +151,7 @@ const request = {
   },
   patch: async ({ entity, jsonData }) => {
     try {
-      const response = await axios.patch(entity, jsonData, axiosConfig);
+      const response = await axios.patch(entity, jsonData, axiosConf);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,

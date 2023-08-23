@@ -1,4 +1,4 @@
-import { REACT_APP_API_BASE_URL } from '@/config/serverApiConfig';
+import { REACT_APP_API_BASE_URL, axiosConfig } from '@/config/serverApiConfig';
 
 import axios from 'axios';
 import errorHandler from '@/request/errorHandler';
@@ -36,10 +36,16 @@ export const login = async ({ loginData }) => {
   }
 };
 export const logout = async () => {
+  const jwtToken = "Bearer " + window.localStorage.getItem("token").replace(/"/g,'')
+
+  const axiosConf = axiosConfig
+  axiosConf.headers.Authorization = jwtToken;
+
+  console.log("axiosConfig", axiosConfig)
   axios.defaults.withCredentials = true;
   try {
     window.localStorage.clear();
-    await axios.post(REACT_APP_API_BASE_URL + `logout?timestamp=${new Date().getTime()}`);
+    await axios.post(REACT_APP_API_BASE_URL + `logout?timestamp=${new Date().getTime()}`, null, axiosConfig);
   } catch (error) {
     return errorHandler(error);
   }
