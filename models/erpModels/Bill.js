@@ -34,12 +34,11 @@ const billSchema = new mongoose.Schema({
   },
   items: [
     {
-      itemName: {
-        type: String,
-        required: true
-      },
-      description: {
-        type: String
+      itemId: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Item',
+        required: true,
+        autopopulate: true
       },
       quantity: {
         type: Number,

@@ -3,7 +3,7 @@ const multer = require('multer')
 const path = require('path')
 const setFilePathToBody = require('@/middlewares/setFilePathToBody')
 const { catchErrors } = require('@/handlers/errorHandlers')
-const { validateCreateItem } = require('../../middlewares/validationMiddleware')
+const { validateCreateItem, validateCreateBill } = require('../../middlewares/validationMiddleware')
 
 const router = express.Router()
 
@@ -105,9 +105,9 @@ router.route('/invoice/pdf/:id').get(catchErrors(invoiceController.generatePDF))
 router.route('/invoice/mail').post(catchErrors(invoiceController.sendMail))
 
 // //_____________________________________API for bills_____________________
-router.route('/bill/create').post(catchErrors(billController.create))
+router.route('/bill/create').post(validateCreateBill, catchErrors(billController.create))
 router.route('/bill/read/:id').get(catchErrors(billController.read))
-router.route('/bill/update/:id').patch(catchErrors(billController.update))
+router.route('/bill/update/:id').patch(validateCreateBill, catchErrors(billController.update))
 router.route('/bill/delete/:id').delete(catchErrors(billController.delete))
 router.route('/bill/search').get(catchErrors(billController.search))
 router.route('/bill/list').get(catchErrors(billController.list))
@@ -128,7 +128,7 @@ router.route('/itemCategories/filter').get(catchErrors(itemCategoryController.fi
 // //_________________________________________API for items_____________________
 router.route('/item/create').post(validateCreateItem, catchErrors(itemController.create))
 router.route('/item/read/:id').get(catchErrors(itemController.read))
-router.route('/item/update/:id').patch(catchErrors(itemController.update))
+router.route('/item/update/:id').patch(validateCreateItem, catchErrors(itemController.update))
 router.route('/item/delete/:id').delete(catchErrors(itemController.delete))
 router.route('/item/search').get(catchErrors(itemController.search))
 router.route('/item/list').get(catchErrors(itemController.list))

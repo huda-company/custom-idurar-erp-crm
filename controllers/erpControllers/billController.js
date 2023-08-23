@@ -7,6 +7,7 @@ const custom = require('../corsControllers/custom')
 const sendMail = require('./mailInvoiceController')
 const crudController = require('../corsControllers/crudController')
 const methods = crudController.createCRUDController('Bill')
+const helpers = require('../../helpers')
 
 delete methods.create
 delete methods.update
@@ -15,14 +16,25 @@ methods.create = async (req, res) => {
   try {
     const { items = [], taxRate = 0, discount = 0 } = req.body
 
-    // default
+    // item verification process
+    const itemIds = items.map((item) => item.itemId)
+    const checkedItems = await helpers.bulkCheckByIds('Item', itemIds)
+    if (itemIds.length !== checkedItems.length) {
+      return res.status(400).json({
+        success: false,
+        result: null,
+        message: 'Failed to verification items. Please check items parameter'
+      })
+    }
+
+    // item calculation process
     let subTotal = 0
     let taxTotal = 0
     let total = 0
 
-    // Calculate the items array with subTotal, total, taxTotal
-    items.forEach((item) => {
-      const total = item.quantity * item.price
+    items.forEach(async (item) => {
+      const itm = checkedItems.find((x) => x._id.toString() === item.itemId)
+      const total = Number(item.quantity) * Number(itm.price)
       // sub total
       subTotal += total
       // item total
@@ -32,18 +44,19 @@ methods.create = async (req, res) => {
     total = subTotal + taxTotal
 
     const body = req.body
-
     body.subTotal = subTotal
     body.taxTotal = taxTotal
-    body.total = total
+    body.total = total - discount
     body.items = items
 
     const paymentStatus = total - discount === 0 ? 'paid' : 'unpaid'
-
     body.paymentStatus = paymentStatus
+
     // Creating a new document in the collection
     const result = await new Model(body).save()
+
     const fileId = 'bill-' + result._id + '.pdf'
+
     const updateResult = await Model.findOneAndUpdate(
       { _id: result._id },
       { pdfPath: fileId },
