@@ -97,6 +97,22 @@ exports.settingMedical = async (name) => {
   }
 }
 
+exports.bulkCheckByIds = async (ModelName, arrObJids) => {
+  try {
+    const Model = mongoose.model(ModelName)
+    const foundItems = await Model.find({ _id: { $in: arrObJids } })
+
+    if (foundItems) {
+      return foundItems
+    }
+
+    return null
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log('bulkCheckByIds failed', err)
+  }
+}
+
 /* eslint-disable */
 // const settingCommercial = () => {
 // 	return new Promise((resolve, reject) => {
