@@ -11,15 +11,9 @@ const paymentBillSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  supplier: {
+  bill: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Supplier',
-    autopopulate: true,
-    required: true
-  },
-  invoice: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Invoice',
+    ref: 'Bill',
     required: true,
     autopopulate: true
   },

@@ -3,7 +3,11 @@ const multer = require('multer')
 const path = require('path')
 const setFilePathToBody = require('@/middlewares/setFilePathToBody')
 const { catchErrors } = require('@/handlers/errorHandlers')
-const { validateCreateItem, validateCreateBill } = require('../../middlewares/validationMiddleware')
+const {
+  validateCreateItem,
+  validateCreateBill,
+  validateCreatePaymentBill
+} = require('../../middlewares/validationMiddleware')
 
 const router = express.Router()
 
@@ -22,6 +26,7 @@ const orderFormController = require('@/controllers/erpControllers/orderFormContr
 const expenseController = require('@/controllers/erpControllers/expenseController')
 const expenseCategoryController = require('@/controllers/erpControllers/expenseCategoryController')
 const paymentInvoiceController = require('@/controllers/erpControllers/paymentInvoiceController')
+const paymentBillController = require('@/controllers/erpControllers/paymentBillController')
 const settingsController = require('@/controllers/erpControllers/settingsController')
 
 // //_______________________________ Admin management_______________________________
@@ -116,6 +121,20 @@ router.route('/bill/filter').get(catchErrors(billController.filter))
 router.route('/bill/pdf/:id').get(catchErrors(billController.generatePDF))
 router.route('/bill/mail').post(catchErrors(billController.sendMail))
 
+// //________________________________________ API for bill payments_________________
+router
+  .route('/paymentBill/create')
+  .post(validateCreatePaymentBill, catchErrors(paymentBillController.create))
+router.route('/paymentBill/read/:id').get(catchErrors(paymentBillController.read))
+router
+  .route('/paymentBill/update/:id')
+  .patch(validateCreatePaymentBill, catchErrors(paymentBillController.update))
+router.route('/paymentBill/delete/:id').delete(catchErrors(paymentBillController.delete))
+router.route('/paymentBill/search').get(catchErrors(paymentBillController.search))
+router.route('/paymentBill/list').get(catchErrors(paymentBillController.list))
+router.route('/paymentBill/filter').get(catchErrors(paymentBillController.filter))
+router.route('/paymentBill/pdf/:id').get(catchErrors(paymentBillController.generatePDF))
+
 // //_______________________________________API for item Categories_____________________
 router.route('/itemCategories/create').post(catchErrors(itemCategoryController.create))
 router.route('/itemCategories/read/:id').get(catchErrors(itemCategoryController.read))
@@ -154,7 +173,6 @@ router.route('/supplier/list').get(catchErrors(supplierController.list))
 router.route('/supplier/filter').get(catchErrors(supplierController.filter))
 
 // //_________________________________________ API for order Forms _____________________
-
 router.route('/orderForm/create').post(catchErrors(orderFormController.create))
 router.route('/orderForm/read/:id').get(catchErrors(orderFormController.read))
 router.route('/orderForm/update/:id').patch(catchErrors(orderFormController.update))
@@ -166,7 +184,6 @@ router.route('/orderForm/filter').get(catchErrors(orderFormController.filter))
 router.route('/orderForm/pdf/:id').get(catchErrors(orderFormController.generatePDF))
 
 // //__________________________________________API for expenses_____________________
-
 router.route('/expense/create').post(catchErrors(expenseController.create))
 router.route('/expense/read/:id').get(catchErrors(expenseController.read))
 router.route('/expense/update/:id').patch(catchErrors(expenseController.update))
@@ -176,7 +193,6 @@ router.route('/expense/list').get(catchErrors(expenseController.list))
 router.route('/expense/filter').get(catchErrors(expenseController.filter))
 
 // //______________________________________API for expense categories________________
-
 router.route('/expenseCategory/create').post(catchErrors(expenseCategoryController.create))
 router.route('/expenseCategory/read/:id').get(catchErrors(expenseCategoryController.read))
 router.route('/expenseCategory/update/:id').patch(catchErrors(expenseCategoryController.update))
@@ -186,7 +202,6 @@ router.route('/expenseCategory/list').get(catchErrors(expenseCategoryController.
 router.route('/expenseCategory/filter').get(catchErrors(expenseCategoryController.filter))
 
 // //________________________________________ API for client payments_________________
-
 router.route('/paymentInvoice/create').post(catchErrors(paymentInvoiceController.create))
 router.route('/paymentInvoice/read/:id').get(catchErrors(paymentInvoiceController.read))
 router.route('/paymentInvoice/update/:id').patch(catchErrors(paymentInvoiceController.update))
@@ -197,7 +212,6 @@ router.route('/paymentInvoice/filter').get(catchErrors(paymentInvoiceController.
 router.route('/paymentInvoice/pdf/:id').get(catchErrors(paymentInvoiceController.generatePDF))
 
 // //____________________________________________ API for Global Setting _________________
-
 router.route('/settings/create').post(catchErrors(settingsController.create))
 router.route('/settings/read/:id').get(catchErrors(settingsController.read))
 router.route('/settings/update/:id').patch(catchErrors(settingsController.update))
