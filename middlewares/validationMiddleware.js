@@ -1,5 +1,6 @@
 const { createItemSchema } = require('../validators/itemValidators')
 const { createBillSchema } = require('../validators/billValidators')
+const { createPaymentBillSchema } = require('../validators/paymentBillValidators')
 
 const validateRequest = (schema) => {
   return (req, res, next) => {
@@ -22,5 +23,6 @@ const validateRequest = (schema) => {
 
 module.exports = {
   validateCreateItem: validateRequest(createItemSchema),
-  validateCreateBill: validateRequest(createBillSchema)
+  validateCreateBill: validateRequest(createBillSchema),
+  validateCreatePaymentBill: validateRequest(createPaymentBillSchema)
 }
