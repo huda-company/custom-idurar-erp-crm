@@ -37,7 +37,7 @@ export default function LoginForm() {
           size="large"
         />
       </Form.Item>
-      <Form.Item>
+      {/* <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
@@ -45,7 +45,7 @@ export default function LoginForm() {
         <a className="login-form-forgot" href="">
           Forgot password
         </a>
-      </Form.Item>
+      </Form.Item> */}
     </>
   );
 }

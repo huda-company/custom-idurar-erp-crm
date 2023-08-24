@@ -8,7 +8,7 @@ const INITIAL_SETTINGS_STATE = {
   appSettings: {},
   userProfils: {},
   moneyFormat: {
-    currencySymbol: '$',
+    currencySymbol: 'Rp',
     currencyPosition: 'before',
     decimalSep: '.',
     ThousandSep: ',',

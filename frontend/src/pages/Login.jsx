@@ -11,10 +11,10 @@ import LoginForm from '@/forms/LoginForm';
 import AuthLayout from '@/layout/AuthLayout';
 
 import logo from '@/style/images/logo.png';
-import logo1 from '@/style/images/logo1.png';
-import logo2 from '@/style/images/logo2.png';
-import logo3 from '@/style/images/logo3.png';
-import logo4 from '@/style/images/logo4.png';
+// import logo1 from '@/style/images/logo1.png';
+// import logo2 from '@/style/images/logo2.png';
+// import logo3 from '@/style/images/logo3.png';
+// import logo4 from '@/style/images/logo4.png';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -33,8 +33,8 @@ const SideContent = () => {
       <div style={{ width: '100%' }}>
         <img src={logo} alt="Logo" style={{ margin: '0 auto 40px', display: 'block' }} />
         <div className="space40"></div>
-        <Title level={3}>Manage your company with :</Title>
-        <div className="space20"></div>
+        <Title level={3}>-- Boost Your Productivity --</Title>
+        {/* <div className="space20"></div>
         <ul className="list-checked">
           <li className="list-checked-item">
             <Space direction="vertical">
@@ -110,7 +110,7 @@ const SideContent = () => {
               opacity: '0.8',
             }}
           />
-        </div>
+        </div> */}
       </div>
     </Content>
   );
@@ -167,7 +167,7 @@ const LoginPage = () => {
                 >
                   Log in
                 </Button>
-                Or <a href="">register now!</a>
+                {/* Or <a href="">register now!</a> */}
               </Form.Item>
             </Form>
           </div>
