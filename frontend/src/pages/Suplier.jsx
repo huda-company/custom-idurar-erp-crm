@@ -37,10 +37,6 @@ function Suplier() {
       dataIndex: 'tel',
     },
     {
-      title: 'Phone',
-      dataIndex: 'tel',
-    },
-    {
       title: 'Bank Account',
       dataIndex: 'bankAccount',
     },
@@ -66,6 +62,18 @@ function Suplier() {
       title: 'Email',
       dataIndex: 'email',
     },
+    {
+      title: 'Phone',
+      dataIndex: 'tel',
+    },
+    {
+      title: 'Bank Account',
+      dataIndex: 'bankAccount',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+    },
   ];
 
   const ADD_NEW_ENTITY = 'Add New Suplier';
@@ -90,10 +98,8 @@ function Suplier() {
   };
   return (
     <CrudModule
-
       createForm={<SupplierForm />}
       updateForm={<SupplierForm isUpdateForm={true} />}
-
       config={config}
     />
   );
