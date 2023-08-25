@@ -24,6 +24,31 @@ exports.createBL = async (Model, req) => {
       break
     }
 
+    case 'Supplier': {
+      respBL.success = true
+      break
+    }
+
+    case 'Role': {
+      respBL.success = true
+      break
+    }
+
+    case 'Client': {
+      respBL.success = true
+      break
+    }
+
+    case 'ItemCategory': {
+      respBL.success = true
+      break
+    }
+
+    case 'Employee': {
+      respBL.success = true
+      break
+    }
+
     default:
       break
   }
