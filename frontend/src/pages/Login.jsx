@@ -32,9 +32,10 @@ const SideContent = () => {
       className="sideContent"
     >
       <div style={{ width: '100%' }}>
-        <img src={logo} alt="Logo" style={{ margin: '0 auto 40px', display: 'block' }} />
+        <img src={logo} height={"75%"} width={"75%"} alt="Logo" style={{ margin: '0 auto', display: 'block' }} />
         <div className="space40"></div>
-        <Title level={4}>-- {t('boost_your_productivity')} --</Title>
+        <Title style={{}} level={4}>-- {t('boost_your_productivity')} --</Title>
+        <Title style={{textAlign:'center'}} level={5}>&copy; PT Anugerah Tani Makmur</Title>
         {/* <div className="space20"></div>
         <ul className="list-checked">
           <li className="list-checked-item">
