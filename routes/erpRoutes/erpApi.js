@@ -28,6 +28,7 @@ const expenseCategoryController = require('@/controllers/erpControllers/expenseC
 const paymentInvoiceController = require('@/controllers/erpControllers/paymentInvoiceController')
 const paymentBillController = require('@/controllers/erpControllers/paymentBillController')
 const settingsController = require('@/controllers/erpControllers/settingsController')
+const branchController = require('@/controllers/erpControllers/branchController')
 
 // //_______________________________ Admin management_______________________________
 
@@ -219,5 +220,14 @@ router.route('/settings/delete/:id').delete(catchErrors(settingsController.delet
 router.route('/settings/search').get(catchErrors(settingsController.search))
 router.route('/settings/list').get(catchErrors(settingsController.list))
 router.route('/settings/filter').get(catchErrors(settingsController.filter))
+
+// //__________________________________________API for branch_____________________
+router.route('/branch/create').post(catchErrors(branchController.create))
+router.route('/branch/read/:id').get(catchErrors(branchController.read))
+router.route('/branch/update/:id').patch(catchErrors(branchController.update))
+router.route('/branch/delete/:id').delete(catchErrors(branchController.delete))
+router.route('/branch/search').get(catchErrors(branchController.search))
+router.route('/branch/list').get(catchErrors(branchController.list))
+router.route('/branch/filter').get(catchErrors(branchController.filter))
 
 module.exports = router
