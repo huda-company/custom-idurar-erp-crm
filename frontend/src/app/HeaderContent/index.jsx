@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useTranslation } from "react-i18next";
+
 import { Avatar, Menu, Dropdown } from 'antd';
 
 import {
@@ -15,6 +17,7 @@ import history from '@/utils/history';
 import uniqueId from '@/utils/uinqueId';
 
 export default function HeaderContent() {
+  const { t } = useTranslation();
   const { SubMenu } = Menu;
 
   const profileDropdown = (
@@ -63,7 +66,7 @@ export default function HeaderContent() {
             key={`${uniqueId()}`}
             onClick={() => history.push('/logout')}
           >
-            logout
+            {t('logout')}
           </Menu.Item>
         </Menu>
       </div>

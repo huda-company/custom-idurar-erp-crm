@@ -1,0 +1,22 @@
+{
+ "login_page" : "Halaman Login",
+ "boost_your_productivity" : "Tingkatkan Produktivitasmu",
+ "payment": "Pembayaran",
+ "duebalance": "Saldo Jatuh Tempo",
+
+ "btn_label_login": "Masuk",
+
+ "sidebar_menu_dashboard": "Halaman Utama",
+ "sidebar_menu_purchasing": "Pembelian",
+ "sidebar_menu_bill": "Tagihan",
+ "sidebar_menu_billpayment": "Pembayaran Tagihan",
+ "sidebar_menu_supplier": "Supplier",
+ "sidebar_menu_invoice": "Faktur",
+ "sidebar_menu_sales": "Penjualan",
+ "sidebar_menu_invoicepayment": "Pembayaran Faktur",
+ "sidebar_menu_customer": "Pelanggan",
+ "sidebar_menu_employee": "Pegawai",
+ "sidebar_menu_setting": "Pengaturan",
+
+ "logout": "Keluar"
+}

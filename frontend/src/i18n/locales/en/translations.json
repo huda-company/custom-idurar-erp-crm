@@ -1,0 +1,22 @@
+{
+ "login_page" : "Login Page",
+ "boost_your_productivity" : "Boost Your Productivity",
+ "payment": "Pembayaran",
+ "duebalance": "Due Balance",
+
+ "btn_label_login": "Log In",
+
+ "sidebar_menu_dashboard": "Dashboard",
+ "sidebar_menu_purchasing": "Purchasing",
+ "sidebar_menu_bill": "Bill",
+ "sidebar_menu_billpayment": "Bill Payment",
+ "sidebar_menu_supplier": "Supplier",
+ "sidebar_menu_invoice": "Invoice",
+ "sidebar_menu_sale": "Sale",
+ "sidebar_menu_invoicepayment": "Invoice Payment",
+ "sidebar_menu_customer": "Customer",
+ "sidebar_menu_employee": "Employee",
+ "sidebar_menu_setting": "Settings",
+
+ "logout": "Log Out"
+}
