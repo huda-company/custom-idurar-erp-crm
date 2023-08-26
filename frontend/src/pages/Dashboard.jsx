@@ -7,6 +7,7 @@ import { ArrowUpOutlined } from '@ant-design/icons';
 
 import { DashboardLayout } from '@/layout';
 import RecentTable from '@/components/RecentTable';
+import { useTranslation } from "react-i18next";
 
 const TopCard = ({ title, tagContent, tagColor, prefix }) => {
   return (
@@ -106,6 +107,7 @@ const PreviewState = ({ tag, color, value }) => {
   );
 };
 export default function Dashboard() {
+  const { t } = useTranslation();
   const entity = 'invoice213';
   const dataTableColumns = [
     {
@@ -136,12 +138,12 @@ export default function Dashboard() {
 
   // eslint-disable-next-line no-unused-vars
   const config = { entity, dataTableColumns };
-
+  
   return (
     <DashboardLayout>
       <Row gutter={[24, 24]}>
         <TopCard
-          title={'Invoice'}
+          title={t('sidebar_menu_invoice')}
           tagColor={'cyan'}
           prefix={'This month'}
           tagContent={'34 000 $'}
@@ -153,13 +155,13 @@ export default function Dashboard() {
           tagContent={'34 000 $'}
         />
         <TopCard
-          title={'Payment'}
+          title={t('payment')}
           tagColor={'green'}
           prefix={'This month'}
           tagContent={'34 000 $'}
         />
         <TopCard
-          title={'Due Balance'}
+          title={t('duebalance')}
           tagColor={'red'}
           prefix={'Not Paid'}
           tagContent={'34 000 $'}

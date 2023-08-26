@@ -6,6 +6,8 @@ import { useAppContext } from '@/context/appContext';
 import logoIcon from '@/style/images/logo-icon.png';
 import logoText from '@/style/images/logo-text.png';
 
+import { useTranslation } from "react-i18next";
+
 import {
   SettingOutlined,
   CustomerServiceOutlined,
@@ -22,6 +24,7 @@ const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 export default function Navigation() {
+  const { t } = useTranslation();
   const { state: stateApp, appContextAction } = useAppContext();
   const { isNavMenuClose } = stateApp;
   const { navMenu } = appContextAction;
@@ -64,19 +67,19 @@ export default function Navigation() {
         <Menu mode="inline">
           <Menu.Item key={'Dashboard'} icon={<DashboardOutlined />}>
             <Link to={'/'} />
-            Dashboard
+            {t('sidebar_menu_dashboard')}
           </Menu.Item>
-          <SubMenu key={'Purchasing'} icon={<SettingOutlined />} title={'Purchasing'}>
+          <SubMenu key={'Purchasing'} icon={<SettingOutlined />} title={t('sidebar_menu_purchasing')}>
             <Menu.Item key={'Suplier'} icon={<UsergroupAddOutlined />}>
               <Link to={'/suplier'} />
-              Suplier
+            {t('sidebar_menu_supplier')}
             </Menu.Item>
             <Menu.Item key={'Bills'} icon={<UsergroupAddOutlined />}>
               <Link to={'/bills'} />
-              Bills
+            {t('sidebar_menu_bill')}
             </Menu.Item>
           </SubMenu>
-          <SubMenu key={'Settings'} icon={<SettingOutlined />} title={'Settings'}>
+          <SubMenu key={'Settings'} icon={<SettingOutlined />} title={t('sidebar_menu_setting')}>
             <Menu.Item key={'SettingsPage'}>
               <Link to={'/settings'} />
               General Settings
@@ -92,11 +95,11 @@ export default function Navigation() {
           </SubMenu>
           <Menu.Item key={'Customer'} icon={<CustomerServiceOutlined />}>
             <Link to={'/customer'} />
-            Customer
+            {t('sidebar_menu_customer')}
           </Menu.Item>
           <Menu.Item key={'Invoice'} icon={<FileTextOutlined />}>
             <Link to={'/invoice'} />
-            Invoice
+            {t('sidebar_menu_invoice')}
           </Menu.Item>
           <Menu.Item key={'Quote'} icon={<FileSyncOutlined />}>
             <Link to={'/quote'} />
@@ -104,11 +107,11 @@ export default function Navigation() {
           </Menu.Item>
           <Menu.Item key={'PaymentInvoice'} icon={<CreditCardOutlined />}>
             <Link to={'/payment/invoice'} />
-            Payment Invoice
+            {t('sidebar_menu_invoicepayment')}
           </Menu.Item>
           <Menu.Item key={'Employee'} icon={<UserOutlined />}>
             <Link to={'/employee'} />
-            Employee
+            {t('sidebar_menu_employee')}
           </Menu.Item>
           <Menu.Item key={'Admin'} icon={<TeamOutlined />}>
             <Link to={'/admin'} />

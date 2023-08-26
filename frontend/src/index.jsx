@@ -12,6 +12,8 @@ import store from '@/redux/store';
 
 import { AppContextProvider } from '@/context/appContext';
 
+import i18n from './i18n/locales/config'; //must import. even unused
+
 ReactDOM.render(
   <RouterHistory history={history}>
     <Provider store={store}>

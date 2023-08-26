@@ -9,7 +9,7 @@ import { login } from '@/redux/auth/actions';
 import { selectAuth } from '@/redux/auth/selectors';
 import LoginForm from '@/forms/LoginForm';
 import AuthLayout from '@/layout/AuthLayout';
-
+import { useTranslation } from "react-i18next";
 import logo from '@/style/images/logo.png';
 // import logo1 from '@/style/images/logo1.png';
 // import logo2 from '@/style/images/logo2.png';
@@ -20,6 +20,7 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const SideContent = () => {
+  const { t } = useTranslation();
   return (
     <Content
       style={{
@@ -33,7 +34,7 @@ const SideContent = () => {
       <div style={{ width: '100%' }}>
         <img src={logo} alt="Logo" style={{ margin: '0 auto 40px', display: 'block' }} />
         <div className="space40"></div>
-        <Title level={3}>-- Boost Your Productivity --</Title>
+        <Title level={4}>-- {t('boost_your_productivity')} --</Title>
         {/* <div className="space20"></div>
         <ul className="list-checked">
           <li className="list-checked-item">
@@ -117,6 +118,7 @@ const SideContent = () => {
 };
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const { loading: isLoading } = useSelector(selectAuth);
 
   const dispatch = useDispatch();
@@ -144,7 +146,7 @@ const LoginPage = () => {
             />
             <div className="space50"></div>
           </Col>
-          <Title level={1}>Sign in</Title>
+          <Title level={1}>{t('login_page')}</Title>
 
           <Divider />
           <div className="site-layout-content">
@@ -165,7 +167,7 @@ const LoginPage = () => {
                   loading={isLoading}
                   size="large"
                 >
-                  Log in
+                  {t('btn_label_login')}
                 </Button>
                 {/* Or <a href="">register now!</a> */}
               </Form.Item>
@@ -177,4 +179,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default (LoginPage);
