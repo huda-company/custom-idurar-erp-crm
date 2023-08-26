@@ -49,6 +49,11 @@ exports.createBL = async (Model, req) => {
       break
     }
 
+    case 'Branch': {
+      respBL.success = true
+      break
+    }
+
     default:
       break
   }
