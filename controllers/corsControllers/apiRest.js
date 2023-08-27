@@ -232,7 +232,6 @@ exports.list = async (Model, req, res) => {
  */
 
 exports.search = async (Model, req, res) => {
-  // console.log(req.query.fields)
   if (req.query.q === undefined || req.query.q.trim() === '') {
     return res
       .status(202)
@@ -252,7 +251,7 @@ exports.search = async (Model, req, res) => {
   for (const field of fieldsArray) {
     fields.$or.push({ [field]: { $regex: new RegExp(req.query.q, 'i') } })
   }
-  // console.log(fields)
+
   try {
     const results = await Model.find(fields).where('removed', false).limit(10)
 
@@ -276,7 +275,7 @@ exports.search = async (Model, req, res) => {
     return res.status(500).json({
       success: false,
       result: null,
-      message: 'Oops there is an Error',
+      message: `Oops there is an Error, ${err}`,
       error: err
     })
   }
@@ -309,7 +308,7 @@ exports.filter = async (Model, req, res) => {
     return res.status(500).json({
       success: false,
       result: null,
-      message: 'Oops there is an Error',
+      message: `Oops there is an Error, ${err}`,
       error: err
     })
   }
