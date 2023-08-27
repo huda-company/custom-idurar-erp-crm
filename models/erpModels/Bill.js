@@ -54,6 +54,16 @@ const billSchema = new mongoose.Schema({
       }
     }
   ],
+  ppnIncluded: {
+    type: Boolean,
+    default: false
+  },
+  billingCode: {
+    type: String
+  },
+  poNo: {
+    type: String
+  },
   taxRate: {
     type: Number,
     default: 0

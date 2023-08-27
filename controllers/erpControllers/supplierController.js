@@ -12,7 +12,7 @@ methods.create = async (req, res) => {
 
     const checkCompCode = await Model.find({ supplierCode: suppCode })
     if (checkCompCode.length > 0) {
-      suppCode = `${suppCode}${helpers.formatNumberToThreeDigits(checkCompCode.length)}`
+      suppCode = `${suppCode}${helpers.formatNumberToNDigits(checkCompCode.length, 2)}`
     }
 
     const body = req.body
