@@ -1,79 +1,47 @@
 const mongoose = require('mongoose')
-const Model = mongoose.model('Bill')
-const BillDocModel = mongoose.model('BillDoc')
+const BillModel = mongoose.model('Bill')
+const Model = mongoose.model('BillDoc')
 const custom = require('../corsControllers/custom')
 const sendMail = require('./mailInvoiceController')
 const crudController = require('../corsControllers/crudController')
-const methods = crudController.createCRUDController('Bill')
-const helpers = require('../../helpers')
+const methods = crudController.createCRUDController('BillDoc')
+const Joi = require('joi')
+Joi.objectId = require('joi-objectid')(Joi)
 
 delete methods.create
 delete methods.update
-delete methods.read
+delete methods.filter
 
 methods.create = async (req, res) => {
-  try {
-    const { items = [], taxRate = 0, discount = 0 } = req.body
-
-    // item verification process
-    const itemIds = items.map((item) => item.itemId)
-    const checkedItems = await helpers.bulkCheckByIds('Item', itemIds)
-    if (itemIds.length !== checkedItems.length) {
-      return res.status(400).json({
-        success: false,
-        result: null,
-        message: 'Failed to verification items. Please check items parameter'
-      })
-    }
-
-    // item calculation process
-    let subTotal = 0
-    let taxTotal = 0
-    let total = 0
-
-    items.forEach(async (item) => {
-      const total = Number(item.quantity) * Number(item.price)
-      // sub total
-      subTotal += total
-      // item total
-      item.total = total
+  const validateBill = Joi.objectId().validate(req.body.bill)
+  if (!validateBill.value) {
+    return res.status(400).json({
+      success: false,
+      result: null,
+      message: 'bill not valid'
     })
-    taxTotal = subTotal * taxRate
-    total = subTotal + taxTotal
+  }
 
-    // creating po number
-    const poNoCreated = await helpers.generatePoNumber(req.body.supplier)
+  const checkBill = await BillModel.find({ _id: req.body.bill })
+  if (!checkBill) {
+    return res.status(400).json({
+      success: false,
+      result: null,
+      message: 'bill not found'
+    })
+  }
 
+  try {
     const body = req.body
-    body.poNo = poNoCreated
-    body.subTotal = subTotal
-    body.taxTotal = taxTotal
-    body.total = total - discount
-    body.items = items
-
-    const paymentStatus = total - discount === 0 ? 'paid' : 'unpaid'
-    body.paymentStatus = paymentStatus
+    body.fileName = req.file.filename
 
     // Creating a new document in the collection
     const result = await new Model(body).save()
 
-    const fileId = 'bill-' + result._id + '.pdf'
-
-    const updateResult = await Model.findOneAndUpdate(
-      { _id: result._id },
-      { pdfPath: fileId },
-      {
-        new: true
-      }
-    ).exec()
-    // Returning successfull response
-
-    custom.generatePdf('Bill', { filename: 'Bill', format: 'A4' }, result)
-
     // Returning successfull response
     return res.status(200).json({
       success: true,
-      result: updateResult,
+      result,
       message: 'Successfully Created the document in Model '
     })
   } catch (err) {
@@ -171,51 +139,51 @@ methods.update = async (req, res) => {
   }
 }
 
-methods.read = async (req, res) => {
-  try {
-    // Find document by id
-    const result = await Model.findOne({ _id: req.params.id, removed: false }).lean()
-    // If no results found, return document not found
-    if (!result) {
-      return res.status(404).json({
+methods.filter = async (req, res) => {
+  if (req.query.q === undefined || req.query.q.trim() === '') {
+    return res
+      .status(202)
+      .json({
         success: false,
-        result: null,
-        message: 'No document found by this id: ' + req.params.id
+        result: [],
+        message: 'No document found by this request'
       })
-    } else {
-      // Find corresponding BillDoc documents
-      const fieldsToRetrieve = ['_id', 'fileName', 'title', 'description']
-      const foundBillDocs = await BillDocModel.find(
-        { bill: { $in: req.params.id } },
-        fieldsToRetrieve.join(' ')
-      )
-        .lean()
-        .exec()
+      .end()
+  }
+  const fieldsArray = req.query.fields
+    ? req.query.fields.split(',')
+    : ['name', 'surname', 'birthday']
 
-      const newArray = foundBillDocs.map((obj) => {
-        const newObj = { ...obj }
-        delete newObj.bill
-        return newObj
-      })
+  const fields = { $or: [] }
 
-      const bill = {
-        ...result,
-        billDocs: newArray
-      }
+  for (const field of fieldsArray) {
+    fields.$or.push({ [field]: { $regex: new RegExp(req.query.q, 'i') } })
+  }
 
-      // Return success resposne
+  try {
+    const results = await Model.find(fields).where('removed', false).limit(10)
+
+    if (results.length >= 1) {
       return res.status(200).json({
         success: true,
-        result: bill,
-        message: 'we found this document by this id: ' + req.params.id
+        result: results,
+        message: 'Successfully found all documents'
       })
+    } else {
+      return res
+        .status(202)
+        .json({
+          success: false,
+          result: [],
+          message: 'No document found by this request'
+        })
+        .end()
     }
   } catch (err) {
-    // Server Error
     return res.status(500).json({
       success: false,
       result: null,
-      message: 'Oops there is an Error',
+      message: `Oops there is an Error, ${err}`,
       error: err
     })
   }

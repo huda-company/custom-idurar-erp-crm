@@ -54,6 +54,11 @@ exports.createBL = async (Model, req) => {
       break
     }
 
+    case 'BillDoc': {
+      respBL.success = true
+      break
+    }
+
     default:
       break
   }

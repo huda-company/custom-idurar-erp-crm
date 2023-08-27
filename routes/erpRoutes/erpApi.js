@@ -18,6 +18,7 @@ const paymentModeController = require('@/controllers/erpControllers/paymentModeC
 const clientController = require('@/controllers/erpControllers/clientController')
 const invoiceController = require('@/controllers/erpControllers/invoiceController')
 const billController = require('@/controllers/erpControllers/billController')
+const billDocController = require('@/controllers/erpControllers/billDocController')
 const itemCategoryController = require('@/controllers/erpControllers/itemCategoriesController')
 const itemController = require('@/controllers/erpControllers/itemController')
 const quoteController = require('@/controllers/erpControllers/quoteController')
@@ -41,6 +42,19 @@ const adminPhotoStorage = multer.diskStorage({
   }
 })
 const adminPhotoUpload = multer({ storage: adminPhotoStorage })
+
+const billDocStorage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, 'uploads/billdocs')
+  },
+  filename(req, file, cb) {
+    cb(
+      null,
+      `bill_${req.body.bill}_${req.body.title}_${Date.now()}` + path.extname(file.originalname)
+    )
+  }
+})
+const billDocUpload = multer({ storage: billDocStorage })
 
 router
   .route('/admin/create')
@@ -135,6 +149,20 @@ router.route('/paymentBill/search').get(catchErrors(paymentBillController.search
 router.route('/paymentBill/list').get(catchErrors(paymentBillController.list))
 router.route('/paymentBill/filter').get(catchErrors(paymentBillController.filter))
 router.route('/paymentBill/pdf/:id').get(catchErrors(paymentBillController.generatePDF))
+
+// //_____________________________________API for bill documents_____________________
+router
+  .route('/billdoc/create')
+  .post([billDocUpload.single('file'), setFilePathToBody], catchErrors(billDocController.create))
+router.route('/billdoc/read/:id').get(catchErrors(billDocController.read))
+router.route('/billdoc/update/:id').patch(validateCreateBill, catchErrors(billDocController.update))
+router.route('/billdoc/delete/:id').delete(catchErrors(billDocController.delete))
+router.route('/billdoc/search').get(catchErrors(billDocController.search))
+router.route('/billdoc/list').get(catchErrors(billDocController.list))
+router.route('/billdoc/filter').get(catchErrors(billDocController.filter))
+
+router.route('/billdoc/pdf/:id').get(catchErrors(billController.generatePDF))
+router.route('/billdoc/mail').post(catchErrors(billController.sendMail))
 
 // //_______________________________________API for item Categories_____________________
 router.route('/itemCategories/create').post(catchErrors(itemCategoryController.create))
