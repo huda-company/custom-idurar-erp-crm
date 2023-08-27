@@ -19,6 +19,8 @@ const createBillSchema = Joi.object({
   status: Joi.string(),
   note: Joi.string(),
   taxRate: Joi.string(),
+  billingCode: Joi.string(),
+  ppnIncluded: Joi.bool(),
   discount: Joi.number().positive()
 })
 

@@ -1,6 +1,3 @@
-// const crudController = require("./corsControllers/crudController");
-// module.exports = crudController.createCRUDController("Invoice");
-
 const mongoose = require('mongoose')
 const Model = mongoose.model('Bill')
 const custom = require('../corsControllers/custom')
@@ -43,7 +40,11 @@ methods.create = async (req, res) => {
     taxTotal = subTotal * taxRate
     total = subTotal + taxTotal
 
+    // creating po number
+    const poNoCreated = await helpers.generatePoNumber(req.body.supplier)
+
     const body = req.body
+    body.poNo = poNoCreated
     body.subTotal = subTotal
     body.taxTotal = taxTotal
     body.total = total - discount
