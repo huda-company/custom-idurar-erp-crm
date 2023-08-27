@@ -10,6 +10,10 @@ const supplierSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  supplierCode: {
+    type: String,
+    trim: true
+  },
   company: {
     type: String,
     trim: true,
