@@ -3,6 +3,7 @@ import { Form, Input, InputNumber, Row, Col } from 'antd';
 
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMoney } from '@/settings';
+import AutoCompleteAsync from '../AutoCompleteAsync';
 
 export default function ItemRow({
   field,
@@ -13,6 +14,7 @@ export default function ItemRow({
   const [totalState, setTotal] = useState(undefined);
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  // const []
   const money = useMoney();
   const updateQt = (value) => {
     setQuantity(value);
@@ -43,15 +45,20 @@ export default function ItemRow({
     <Row gutter={[12, 12]} style={{ position: 'relative' }}>
       <Col className="gutter-row" span={5}>
         <Form.Item
-          name={[field.name, 'itemName']}
-          fieldKey={[field.fieldKey, 'itemName']}
+          name={[field.name, 'itemId']}
+          fieldKey={[field.fieldKey, 'itemId']}
           rules={[{ required: true, message: 'Missing itemName name' }]}
         >
-          <Input placeholder="Item Name" />
+          <AutoCompleteAsync
+            entity={'item'}
+            displayLabels={['name']}
+            searchFields={'name,description'}
+            value={'itemId'}
+          />
         </Form.Item>
       </Col>
       <Col className="gutter-row" span={7}>
-        <Form.Item name={[field.name, 'description']} fieldKey={[field.fieldKey, 'description']}>
+        <Form.Item>
           <Input placeholder="description Name" />
         </Form.Item>
       </Col>

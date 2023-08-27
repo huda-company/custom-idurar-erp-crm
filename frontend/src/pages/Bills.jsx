@@ -1,13 +1,14 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { Tag } from 'antd';
-import InvoiceModule from '@/modules/InvoiceModule';
+import BiillsModule from '@/modules/BillsModule';
+
 import { useMoney } from '@/settings';
 
 export default function Bills() {
   const { moneyRowFormatter } = useMoney();
 
-  const entity = 'invoice';
+  const entity = 'bill';
   const searchConfig = {
     displayLabels: ['name', 'surname'],
     searchFields: 'name,surname,birthday',
@@ -15,12 +16,8 @@ export default function Bills() {
   const entityDisplayLabels = ['number', 'client.company'];
   const dataTableColumns = [
     {
-      title: '#N',
-      dataIndex: 'number',
-    },
-    {
-      title: 'Suplier',
-      dataIndex: ['client', 'company'],
+      title: 'billingCode',
+      dataIndex: 'billingCode',
     },
     {
       title: 'Date',
@@ -30,7 +27,7 @@ export default function Bills() {
       },
     },
     {
-      title: 'Due date',
+      title: 'expiredDate',
       dataIndex: 'expiredDate',
       render: (date) => {
         return dayjs(date).format('DD/MM/YYYY');
@@ -94,5 +91,5 @@ export default function Bills() {
     searchConfig,
     entityDisplayLabels,
   };
-  return <InvoiceModule config={config} />;
+  return <BiillsModule config={config} />;
 }

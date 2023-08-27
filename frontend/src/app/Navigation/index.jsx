@@ -106,6 +106,10 @@ export default function Navigation() {
             <Link to={'/payment/invoice'} />
             Payment Invoice
           </Menu.Item>
+          <Menu.Item key={'Item'} icon={<CreditCardOutlined />}>
+            <Link to={'/item'} />
+            Master Item
+          </Menu.Item>
           <Menu.Item key={'Employee'} icon={<UserOutlined />}>
             <Link to={'/employee'} />
             Employee

@@ -96,7 +96,7 @@ export default function ReadItem({ config }) {
   }, [currentResult]);
 
   useEffect(() => {
-    console.info('itemslist', itemslist);
+    // console.info('itemslist', itemslist);
   }, [itemslist]);
 
   return (
@@ -174,11 +174,11 @@ export default function ReadItem({ config }) {
         </Row>
       </PageHeader>
       <Divider dashed />
-      <Descriptions title={`Client : ${currentErp.client.company}`}>
+      {/* <Descriptions title={`Client : ${currentErp.client.company}`}>
         <Descriptions.Item label="Address">{currentErp.client.address}</Descriptions.Item>
         <Descriptions.Item label="E-mail">{currentErp.client.email}</Descriptions.Item>
         <Descriptions.Item label="Phone">{currentErp.client.phone}</Descriptions.Item>
-      </Descriptions>
+      </Descriptions> */}
       <Divider />
       <Row gutter={[12, 0]}>
         <Col className="gutter-row" span={11}>
