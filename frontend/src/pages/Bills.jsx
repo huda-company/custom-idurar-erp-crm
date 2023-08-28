@@ -1,13 +1,13 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { Tag } from 'antd';
-import InvoiceModule from '@/modules/InvoiceModule';
+import BillModule from '@/modules/BillModule';
 import { useMoney } from '@/settings';
 
 export default function Bills() {
   const { moneyRowFormatter } = useMoney();
 
-  const entity = 'invoice';
+  const entity = 'bill';
   const searchConfig = {
     displayLabels: ['name', 'surname'],
     searchFields: 'name,surname,birthday',
@@ -20,7 +20,7 @@ export default function Bills() {
     },
     {
       title: 'Suplier',
-      dataIndex: ['client', 'company'],
+      dataIndex: ['supplier', 'company'],
     },
     {
       title: 'Date',
@@ -94,5 +94,5 @@ export default function Bills() {
     searchConfig,
     entityDisplayLabels,
   };
-  return <InvoiceModule config={config} />;
+  return <BillModule config={config} />;
 }
