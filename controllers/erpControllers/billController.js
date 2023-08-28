@@ -15,6 +15,8 @@ methods.create = async (req, res) => {
   try {
     const { items = [], taxRate = 0, discount = 0 } = req.body
 
+    const countRow = await Model.countDocuments()
+
     // item verification process
     const itemIds = items.map((item) => item.itemId)
     const checkedItems = await helpers.bulkCheckByIds('Item', itemIds)
@@ -45,6 +47,7 @@ methods.create = async (req, res) => {
     const poNoCreated = await helpers.generatePoNumber(req.body.supplier)
 
     const body = req.body
+    body.number = countRow
     body.poNo = poNoCreated
     body.subTotal = subTotal
     body.taxTotal = taxTotal

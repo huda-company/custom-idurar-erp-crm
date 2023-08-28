@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
     }
 
     const admin = await Admin.findOne({ email, removed: false })
-    // console.log(admin);
+
     if (!admin) {
       return res.status(400).json({
         success: false,
@@ -79,7 +79,8 @@ exports.login = async (req, res) => {
           admin: {
             id: result._id,
             name: result.name,
-            isLoggedIn: result.isLoggedIn > 0
+            isLoggedIn: result.isLoggedIn > 0,
+            role: admin.role
           }
         },
         message: 'Successfully login admin'
