@@ -48,6 +48,10 @@ export const routesConfig = [
     component: 'Invoice',
   },
   {
+    path: '/bill',
+    component: 'Bill',
+  },
+  {
     path: '/quote',
     component: 'Quote',
   },
